@@ -7,7 +7,9 @@ module.exports = (sequelize, DataTypes) => {
     },
     ownerId: {
       type: DataTypes.INTEGER,
-      references: {model: 'Owners'}
+      references: {model: 'Users',
+      key: 'restaurantOwnerId'
+    }
     }
   }, {});
   Restaurant.associate = function(models) {

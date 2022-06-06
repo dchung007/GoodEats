@@ -17,10 +17,6 @@ module.exports = {
         type: Sequelize.STRING.BINARY,
         allowNull: false
       },
-      restaurantShelfId: {
-        type: Sequelize.INTEGER,
-        allowNull: false
-      },
       restaurantOwnerId: {
         type: Sequelize.INTEGER,
         allowNull: false

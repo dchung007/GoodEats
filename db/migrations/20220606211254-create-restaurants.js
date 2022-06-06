@@ -14,7 +14,10 @@ module.exports = {
       },
       ownerId: {
         type: Sequelize.INTEGER,
-        references: {model: 'Owners'}
+        references: {
+          model: 'Users',
+          key: 'restaurantOwnerId'
+        }
       },
       createdAt: {
         allowNull: false,

@@ -10,10 +10,6 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING.BINARY,
       allowNull: false
     },
-    restaurantShelfId: {
-      type: DataTypes.INTEGER,
-      allowNull: false
-    },
     restaurantOwnerId: {
       type: DataTypes.INTEGER,
       allowNull: false
@@ -23,6 +19,7 @@ module.exports = (sequelize, DataTypes) => {
     // associations can be defined here
     User.hasOne(models.Restaurant, {foreignKey: 'ownerId'});
     User.hasOne(models.RestaurantShelf, {foreignKey: 'userId'});
+    User.hasMany(models.Review, {foreignKey: 'userId', onDelete: 'CASCADE', hooks: true});
   };
   return User;
 };
