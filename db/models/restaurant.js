@@ -8,16 +8,17 @@ module.exports = (sequelize, DataTypes) => {
     ownerId: {
       type: DataTypes.INTEGER,
       references: {model: 'Users',
-      key: 'restaurantOwnerId'
+      key: 'restaurantOwnerId',
+      unique: true
     }
     }
   }, {});
   Restaurant.associate = function(models) {
     // associations can be defined here
-    Restaurant.belongsTo(models.RestaurantShelf, {foreignkey: 'restaurantId'});
+    Restaurant.belongsTo(models.RestaurantShelf, {foreignKey: 'restaurantId'});
     Restaurant.hasMany(models.MenuItem, {foreignKey:'restaurantId', onDelete:'CASCADE', hooks: true});
     Restaurant.hasMany(models.Review, {foreignKey:'restaurantId', onDelete:'CASCADE', hooks: true});
-    Restaurant.belongsTo(models.User, {foreignKey:'restaurantOwnerId'} );
+    Restaurant.belongsTo(models.User, {foreignKey:'userId'} );
   };
   return Restaurant
 };
