@@ -1,0 +1,16 @@
+html
+    head
+        title= #{title}
+    body
+        h2 Create Account
+        form(action="/create-account" method='post')
+            input(type="hidden" name='_csrf' value=csrfToken)
+            label(for='username') Username
+            input(type='text' name='username' value=username required)
+            label(for='password') Password
+            input(type='password' name='password' value=password required)
+            select(name='restaurantOwnerId' required)
+                each restaurant in restaurants
+                    option(value=restaurant.id)= restaurant.name
+            button Create Account
+        p= 'Already have an account?' <a href='./sign-in'> Sign in

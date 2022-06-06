@@ -16,14 +16,16 @@ router.get('/', function(req, res, next) {
   res.send('respond with a resource');
 });
 
-router.get('/users/register', csrfProtection, (req, res) => {
+router.get('/users/register', csrfProtection, asyncHandler ( async (req, res) => {
   const user = db.fillThisIn.build(); // ***
+  const restaurants = await db.fillThisIn.findAll();
   res.render('create-account', {
     title: "Create Account",
     user,
     csrfToken: req.csrfToken(),
+    restaurants
   });
-});
+}));
 
 const userValidators = [
   check('username')
