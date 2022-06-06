@@ -1,6 +1,6 @@
 html
     head
-        title= #{title}
+        title #{title}
     body
         h2 Create Account
         form(action="/create-account" method='post')
@@ -13,4 +13,5 @@ html
                 each restaurant in restaurants
                     option(value=restaurant.id)= restaurant.name
             button Create Account
-        p= 'Already have an account?' <a href='./sign-in'> Sign in
+        div
+            p: a(href='/users/sign-in') Already have an account?

@@ -1,6 +1,6 @@
 html
     head
-        title= #{title}
+        title #{title}
     body
         h1 GoodEats
         h2 Sign In
@@ -11,5 +11,5 @@ html
             label(for='password') Password
             input(type='password' name='password' value=password required)
             button Sign In
-        p= 'New to GoodEats'
-        a(href="#") Create Account
+        div
+            p: a(href="/users/register") New to GoodEats? Create Account

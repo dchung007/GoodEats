@@ -3,3 +3,7 @@ const signInUser = (req, res, user) => {
         userId: user.id,
     };
 };
+
+module.exports = {
+    signInUser,
+};

@@ -9,6 +9,8 @@ const SequelizeStore = require('connect-session-sequelize')(session.Store);
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 
+const { sessionSecret } = require('./config');
+
 const app = express();
 
 // view engine setup
@@ -25,7 +27,8 @@ const store = new SequelizeStore({ db: sequelize });
 
 app.use(
   session({
-    secret: 'superSecret',
+    name: 'good-eats.sid',
+    secret: sessionSecret,
     store,
     saveUninitialized: false,
     resave: false,
