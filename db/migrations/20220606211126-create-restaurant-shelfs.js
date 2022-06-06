@@ -1,4 +1,7 @@
 'use strict';
+
+const { sequelize } = require("../models");
+
 module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.createTable('RestaurantShelfs', {
@@ -20,6 +23,11 @@ module.exports = {
       status: {
         type: Sequelize.BOOLEAN,
         allowNull: false
+      },
+      userId: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: {model: 'Users'}
       },
       createdAt: {
         allowNull: false,
