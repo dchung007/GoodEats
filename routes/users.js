@@ -49,7 +49,15 @@ const userValidators = [
     .withMessage("If you are a restaurant owner, please select the restaurant that you own, if not please select 'not an owner'")
 ]
 
-router.post('users/register', csrfProtection, asyncHandler(async (req, res) => {
+const signInValidator = [
+  check('username')
+    .exists({checkFalsy: true})
+    .withMessage('Please enter a valid username'),
+  check('password')
+    .exists({checkFalsy: true})
+    .withMessage('Please enter a password')
+]
+router.post('users/register', userValidators, csrfProtection, asyncHandler(async (req, res) => {
   const {
     username,
     password,
@@ -69,7 +77,7 @@ router.post('users/register', csrfProtection, asyncHandler(async (req, res) => {
     user.hashedPassword = hashedPassword;
     await user.save();
     signInUser(req, res, user); // auth function
-    res.redirect('/home');
+    res.redirect('/');
   } else {
     const errors = validatorErrors.array().map((error) => error.msg);
     res.render('create-account', {
@@ -81,5 +89,45 @@ router.post('users/register', csrfProtection, asyncHandler(async (req, res) => {
   }
 }));
 
+router.get('/users/sign-in', csrfProtection, (req, res) => {
 
+  res.render('sign-in', {
+    title: "Sign In",
+    csrfToken: req.csrfToken(),
+  });
+
+});
+
+router.post('/users/sign-in', signInValidator, csrfProtection, asyncHandler( async (req, res) => {
+  const {
+    username,
+    password
+  } = req.body;
+
+
+  let errors = [];
+  const validatorErrors = validationResult(req);
+
+  if (validatorErrors.isEmpty()) {
+    const user = await db.fillThisIn.findOne({ where: { username } }); //*********** Fix this */
+    if (user !== null) {
+      const checkPassword = await bcrypt.compare(password, user.hashedPassword.toString());
+      if (checkPassword) {
+        signInUser(req, res, user);
+        return res.redirect('/');
+      }
+    }
+    errors.push('Sign-in failed for the provided username and password!');
+  } else {
+      errors = validatorErrors.array().map((error) => error.msg);
+    }
+    res.render('sign-in', {
+      title: 'Sign In',
+      username,
+      errors,
+      csrfToken: req.csrfToken(),
+    });
+
+
+}));
 module.exports = router;
