@@ -9,9 +9,6 @@ html
             input(type='text' name='username' value=username required)
             label(for='password') Password
             input(type='password' name='password' value=password required)
-            select(name='restaurantOwnerId' required)
-                each restaurant in restaurants
-                    option(value=restaurant.id)= restaurant.name
             button Create Account
         div
             p: a(href='/users/sign-in') Already have an account?

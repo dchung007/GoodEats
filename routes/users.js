@@ -1,7 +1,9 @@
 const express = require('express');
 const { check, validationResult } = require('express-validator');
+const indexRouter = require('./index.js')
 
 const db = require('../db/models');
+const { User, Restaurant } = db;
 const { csrfProtection, asyncHandler } = require('./utils');
 
 const { signInUser, signOutUser } = require('../auth');
@@ -15,13 +17,11 @@ const bcrypt = require('bcryptjs');
 //   res.send('respond with a resource');
 // });
 
-router.get('/users/register', csrfProtection, asyncHandler(async (req, res) => {
+router.get('/register', csrfProtection, asyncHandler(async (req, res) => {
   const user = db.User.build();
-  const restaurants = await db.Restaurant.findAll();
   res.render('create-account', {
     title: "Create Account",
     user,
-    restaurants,
     csrfToken: req.csrfToken(),
   });
 }));
@@ -31,21 +31,21 @@ const userValidators = [
     .exists({ checkFalsy: true})
     .withMessage('Please provide a username')
     .isLength({ max: 100 })
-    .withMessage('Username cannot exceed 100 characters')
-    .custom((value) => {
-      return db.User.findOne({ where: { username: value } })
-        .then((user) => {
-          if (user) {
-            return Promise.reject('The provided username is already being used by another user.')
-          }
-        });
-    }),
+    .withMessage('Username cannot exceed 100 characters'),
+    // .custom((value) => {
+    //   return db.User.findOne({ where: { username: value } })
+    //     .then((user) => {
+    //       if (user) {
+    //         return Promise.reject('The provided username is already being used by another user.')
+    //       }
+    //     });
+    // }),
   check('password')
     .exists({ checkFalsy: true})
     .withMessage('Please provide a password'),
-  check('restaurantOwnerId')
-    .exists({ checkFalsy: true})
-    .withMessage("If you are a restaurant owner, please select the restaurant that you own, if not please select 'not an owner'")
+  // check('restaurantOwnerId')
+  //   .exists({ checkFalsy: true})
+  //   .withMessage("If you are a restaurant owner, please select the restaurant that you own, if not please select 'not an owner'")
 ]
 
 const signInValidators = [
@@ -57,46 +57,43 @@ const signInValidators = [
     .withMessage('Please enter a password')
 ]
 
-router.post('users/register', userValidators, csrfProtection, asyncHandler(async (req, res) => {
+router.post('/register', userValidators, csrfProtection, asyncHandler(async (req, res) => {
   const {
     username,
     password,
-    restaurantOwnerId, // 1 = not owning restaurant, anything > 1 => own restaurant
   } = req.body
-
-  const user = db.User.build({
-    username,
-    password,
-    restaurantOwnerId
-  })
-
-  const validationErrors = validationResult(req);
-
-  if (validationErrors.isEmpty()) {
+  console.log(req.body)
+  const validatorErrors = validationResult(req);
+  //res.redirect('/')
+  if (validatorErrors.isEmpty()) {
     const hashedPassword = await bcrypt.hash(password, 10);
-    user.hashedPassword = hashedPassword;
-    await user.save();
+    //user.hashedPassword = hashedPassword;
+    console.log('test')
+    const user = await User.create({ // ***
+      username,
+      password: hashedPassword,
+    })
     signInUser(req, res, user); // auth function
     res.redirect('/');
   } else {
-    const errors = validationErrors.array().map((error) => error.msg);
+    const errors = validatorErrors.array().map((error) => error.msg);
     res.render('create-account', {
       title: 'Create Account',
-      user,
+      username,
       errors,
       csrfToken: req.csrfToken(),
     });
   }
 }));
 
-router.get('/users/sign-in', csrfProtection, (req, res) => {
+router.get('/sign-in', csrfProtection, (req, res) => {
   res.render('sign-in', {
     title: "Sign In",
     csrfToken: req.csrfToken(),
   });
 });
 
-router.post('/users/sign-in', signInValidators, csrfProtection, asyncHandler( async (req, res) => {
+router.post('/sign-in', signInValidators, csrfProtection, asyncHandler( async (req, res) => {
   const {
     username,
     password
@@ -126,9 +123,9 @@ router.post('/users/sign-in', signInValidators, csrfProtection, asyncHandler( as
   });
 }));
 
-router.post('/users/sign-out', (req, res) => {
+router.post('/sign-out', (req, res) => {
   signOutUser(req, res);
-  res.redirect('/users/sign-in');
+  res.redirect('/sign-in');
 });
 
 module.exports = router;
