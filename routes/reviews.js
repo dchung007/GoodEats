@@ -6,7 +6,7 @@ const { csrfProtection, asyncHandler, csrf } = require('./utils');
 
 const reviewsRouter = express.Router();
 
-
+reviewsRouter.get('/', )
 
 
 module.exports = reviewsRouter;

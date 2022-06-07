@@ -1,7 +1,7 @@
 const express = require('express');
 const { check, validationResult } = require('express-validator');
 const db = require("../db/models");
-const {User, Restaurant} = db;
+const {User, Restaurant, Review, MenuItem} = db;
 const { csrfProtection, asyncHandler, csrf } = require('./utils');
 
 // const menuItemsRouter= require('./routes/menuItems')
@@ -9,10 +9,10 @@ const { csrfProtection, asyncHandler, csrf } = require('./utils');
 
 const restaurantsRouter = express.Router();
 
-// restaurantsRouter.use('/reviews', reviewsRouter);
+// restaurantsRouter.use('/:id(\\d+)/reviews', reviewsRouter);
 // restaurantsRouter.use('/menuItems',menuItemsRouter);
 
-console.log("hit restaurants router")
+// console.log("hit restaurants router")
 restaurantsRouter.get('/',asyncHandler( async (req, res) => {
     const restaurants = await db.Restaurant.findAll();
     // console.log('hit / routes')
@@ -22,6 +22,19 @@ restaurantsRouter.get('/',asyncHandler( async (req, res) => {
         restaurants
     })
 }));
+
+restaurantsRouter.get('/:id(\\d+)', asyncHandler(async (req, res) => {
+    const restaurantId = req.params.id
+    // console.log(restaurantId);
+    const restaurant = await db.Restaurant.findByPk(restaurantId, {
+        include: MenuItem, Review
+    });
+
+    res.render('restaurant', {
+        title: restaurant.name,
+        restaurant,
+    });
+}))
 
 
 module.exports = restaurantsRouter;
