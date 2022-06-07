@@ -1,0 +1,17 @@
+extends layout.pug
+
+block content
+  h1 Menu
+
+  div
+    each item in restaurant.MenuItems
+      h2.itemName= item.name
+      p.itemDescription= item.description
+  form(action=`/restaurants/${restaurant.id}/menu-items`, method="post")
+    label Item name
+    input(type="text" name="name")
+    label Description
+    input(type="text" name="description")
+    button Create menu item
+
+  p: a(href=`/restaurants/${restaurant.id}`)= restaurant.name
