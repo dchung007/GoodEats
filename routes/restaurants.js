@@ -25,11 +25,11 @@ restaurantsRouter.get('/',asyncHandler( async (req, res) => {
 
 restaurantsRouter.get('/:id(\\d+)', asyncHandler(async (req, res) => {
     const restaurantId = req.params.id
-    // console.log(restaurantId);
     const restaurant = await db.Restaurant.findByPk(restaurantId, {
-        include: MenuItem, Review
+        include: [MenuItem, Review]
     });
 
+    console.log(restaurant);
     res.render('restaurant', {
         title: restaurant.name,
         restaurant,

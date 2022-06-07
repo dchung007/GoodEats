@@ -2,4 +2,14 @@ extends layout.pug
 
 block content
   h1= restaurant.name
-  
+
+  div
+    each item in restaurant.MenuItems
+      h2.itemName= item.name
+      p.itemDescription= item.description
+
+  div
+    each review in restaurant.Reviews
+      p.reviewName= review.review
+
+  p: a(href=`/restaurants/`) Restaurants
