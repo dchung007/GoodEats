@@ -9,7 +9,11 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       name: {
-        type: Sequelize.STRING (255),
+        type: Sequelize.STRING(255),
+        allowNull: false
+      },
+      description: {
+        type: Sequelize.TEXT,
         allowNull: false
       },
       ownerId: {
@@ -17,6 +21,7 @@ module.exports = {
         unique: true,
         references: {
           model: 'Users',
+          key: 'id'
         }
       },
       createdAt: {

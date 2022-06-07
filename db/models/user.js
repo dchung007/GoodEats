@@ -10,8 +10,8 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING.BINARY,
       allowNull: false
     },
-    restaurantOwnerId: {
-      type: DataTypes.INTEGER,
+    isOwner: {
+      type: DataTypes.BOOLEAN,
       allowNull: false
     }
   }, {});

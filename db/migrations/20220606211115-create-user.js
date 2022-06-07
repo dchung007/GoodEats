@@ -17,8 +17,8 @@ module.exports = {
         type: Sequelize.STRING.BINARY,
         allowNull: false
       },
-      restaurantOwnerId: {
-        type: Sequelize.INTEGER,
+      isOwner: {
+        type: Sequelize.BOOLEAN,
         allowNull: false
       },
       createdAt: {
