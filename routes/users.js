@@ -29,21 +29,17 @@ const userValidators = [
     .withMessage('Please provide a username')
     .isLength({ max: 100 })
     .withMessage('Username cannot exceed 100 characters')
-    // .custom((value) => {
-    //   return User.findOne({ where: { username: value } }) // ***
-    //     .then((user) => {
-    //       if (user) {
-    //         return Promise.reject('The provided username is already being used by another user.')
-    //       }
-    //     });
-    // }),
-    ,
+    .custom((value) => {
+      return User.findOne({ where: { username: value } }) // ***
+        .then((user) => {
+          if (user) {
+            return Promise.reject('The provided username is already being used by another user.')
+          }
+        });
+    }),
   check('password')
     .exists({ checkFalsy: true})
     .withMessage('Please provide a password'),
-  check('restaurantOwnerId')
-    .exists({ checkFalsy: true})
-    .withMessage("If you are a restaurant owner, please select the restaurant that you own, if not please select 'not an owner'")
 ]
 
 const signInValidator = [
@@ -71,12 +67,13 @@ router.post('/register', userValidators, csrfProtection, asyncHandler(async (req
     const user = await User.create({ // ***
       username,
       password: hashedPassword,
+      isOwner: false
     })
     signInUser(req, res, user); // auth function
-    res.redirect('/', 302);
+    res.redirect('/');
   } else {
     const errors = validatorErrors.array().map((error) => error.msg);
-    res.redirect('create-account', {
+    res.render('create-account', {
       title: 'Create Account',
       username,
       errors,
@@ -106,18 +103,20 @@ router.post('/sign-in', signInValidator, csrfProtection, asyncHandler( async (re
 
   if (validatorErrors.isEmpty()) {
     const user = await User.findOne({ where: { username } }); //*********** Fix this */
-    if (user !== null) {
-      //const checkPassword = await bcrypt.compare(password, user.hashedPassword.toString());
-      if (password) {
+    console.log(user.password)
+    if (user !== null) { //if we have an account
+      const checkPassword = await bcrypt.compare(password, user.password.toString());
+      if (checkPassword) {
         signInUser(req, res, user);
-        return res.redirect('/users/register');
+        return res.redirect('/');
       }
+      errors.push('Sign-in failed for the provided username and password!');
     }
-    errors.push('Sign-in failed for the provided username and password!');
   } else {
       errors = validatorErrors.array().map((error) => error.msg);
     }
-    res.redirect('sign-in', {
+    console.log(errors)
+    res.render('sign-in', {
       title: 'Sign In',
       username,
       errors,
