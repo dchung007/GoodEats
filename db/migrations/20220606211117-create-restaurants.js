@@ -1,10 +1,7 @@
 'use strict';
-
-const { sequelize } = require("../models");
-
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('RestaurantShelfs', {
+    return queryInterface.createTable('Restaurants', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -12,22 +9,25 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       name: {
-        type: Sequelize.STRING,
+        type: Sequelize.STRING(255),
         allowNull: false
       },
-      restaurantId: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-        references: {model: 'Restaurants'}
-      },
-      status: {
-        type: Sequelize.BOOLEAN,
+      description: {
+        type: Sequelize.TEXT,
         allowNull: false
       },
-      userId: {
+      ownerId: {
+        type: Sequelize.INTEGER,
+        unique: true,
+        references: {
+          model: 'Users',
+          key: 'id'
+        }
+      },
+      restaurantShelfId: {
         type: Sequelize.INTEGER,
         allowNull: false,
-        references: {model: 'Users'}
+        references: {model: 'RestaurantShelfs'}
       },
       createdAt: {
         allowNull: false,
@@ -40,6 +40,6 @@ module.exports = {
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('RestaurantShelfs');
+    return queryInterface.dropTable('Restaurants');
   }
 };

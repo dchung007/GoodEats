@@ -12,9 +12,10 @@ module.exports = {
         isBetaMember: false
       }], {});
     */
-    return queryInterface.bulkInsert('Restaurants', [
-      { name: 'Krusty Krab', description: 'The Krusty Krab, owned by Mr. Eugene Krabs, is home to the world famous Krabby Patty', ownerId: 2, restaurantShelfId: 1, createdAt: new Date(), updatedAt: new Date() },
-      { name: 'Chum Bucket', description: 'The Chum Bucket has as much chummy chum chum as you can eat', ownerId: 5, createdAt: new Date(), restaurantShelfId: 2, updatedAt: new Date() }
+    return queryInterface.bulkInsert('RestaurantShelfs', [
+      { name: "Spongebob's List", status: true, userId: 1, createdAt: new Date(), updatedAt: new Date() },
+      { name: "Patrick's List", status: true, userId: 3, createdAt: new Date(), updatedAt: new Date() },
+      { name: "Sandy's List",  status: false, userId: 4, createdAt: new Date(), updatedAt: new Date() },
     ], {});
   },
 
@@ -26,6 +27,6 @@ module.exports = {
       Example:
       return queryInterface.bulkDelete('People', null, {});
     */
-    return queryInterface.bulkDelete('Restaurants', null, {});
+    return queryInterface.bulkDelete('RestaurantShelfs', null, {});
   }
 };

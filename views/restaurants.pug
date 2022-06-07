@@ -1,0 +1,10 @@
+extends layout
+
+block content
+  h1 Restaurants
+  div.allRestaurantsContainer
+    each restaurant in restaurants
+      div.oneRestaurantContainer
+        h2= restaurant.name
+        p= restaurant.description
+  

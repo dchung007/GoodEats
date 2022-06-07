@@ -5,11 +5,6 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false
     },
-    restaurantId: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      references: {model: 'Restaurants'}
-    },
     status: {
       type: DataTypes.BOOLEAN,
       allowNull: false
@@ -22,7 +17,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {});
   RestaurantShelf.associate = function(models) {
     // associations can be defined here
-    RestaurantShelf.hasMany(models.Restaurant, {foreignKey:'restaurantId', onDelete:'CASCADE', hooks: true});
+    RestaurantShelf.hasMany(models.Restaurant, {foreignKey:'restaurantShelfId', onDelete:'CASCADE', hooks: true});
     RestaurantShelf.belongsTo(models.User, {foreignKey: 'userId'});
   };
   return RestaurantShelf;

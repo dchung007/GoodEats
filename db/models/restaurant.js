@@ -15,11 +15,16 @@ module.exports = (sequelize, DataTypes) => {
         model: 'Users',
         key: 'id'
       }
-    }
+    },
+    restaurantShelfId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: { model: 'RestaurantShelfs' }
+    },
   }, {});
   Restaurant.associate = function (models) {
     // associations can be defined here
-    Restaurant.belongsTo(models.RestaurantShelf, { foreignKey: 'restaurantId' });
+    Restaurant.belongsTo(models.RestaurantShelf, { foreignKey: 'restaurantShelfId' });
     Restaurant.hasMany(models.MenuItem, { foreignKey: 'restaurantId', onDelete: 'CASCADE', hooks: true });
     Restaurant.hasMany(models.Review, { foreignKey: 'restaurantId', onDelete: 'CASCADE', hooks: true });
     Restaurant.belongsTo(models.User, { foreignKey: 'ownerId' });
