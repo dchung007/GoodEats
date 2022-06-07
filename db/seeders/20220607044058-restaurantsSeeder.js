@@ -13,8 +13,8 @@ module.exports = {
       }], {});
     */
     return queryInterface.bulkInsert('Restaurants', [
-      { name: 'Krusty Krab', ownerId: 2, createdAt: new Date(), updatedAt: new Date() },
-      { name: 'Chum Bucket', ownerId: 5, createdAt: new Date(), updatedAt: new Date() }
+      { name: 'Krusty Krab', description: 'The Krusty Krab, owned by Mr. Eugene Krabs, is home to the world famous Krabby Patty', ownerId: 2, createdAt: new Date(), updatedAt: new Date() },
+      { name: 'Chum Bucket', description: 'The Chum Bucket has as much chummy chum chum as you can eat', ownerId: 5, createdAt: new Date(), updatedAt: new Date() }
     ], {});
   },
 
