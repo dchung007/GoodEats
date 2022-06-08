@@ -7,7 +7,7 @@ block content
         ul
           each error in errors
             li= error
-    form(method="post" action=`/restaurants/${restaurant.id}/reviews/new`)
+  form(method="post" action=`/restaurants/${restaurant.id}/reviews/new`)
       input(type="hidden" name="_csrf" value=csrfToken)
       label(for="review") Your review:
       textarea(id="review" name="review" value=review required)

@@ -95,9 +95,6 @@ restaurantsRouter.post('/:id(\\d+)/reviews/new', requireAuth, csrfProtection, re
 
 
 
-
-
-
 restaurantsRouter.get('/reviews',asyncHandler( async (req, res) => {
     console.log('hit / routes');
     res.send("ReviewsTest");
@@ -152,18 +149,37 @@ restaurantsRouter.post('/:restaurantid(\\d+)/reviews/edit/:id(\\d+)', csrfProtec
     }
 }));
 
-restaurantsRouter.delete('/:restaurantid(\\d+)/reviews/:id(\\d+)',
-    csrfProtection,
-    requireAuth,
-    asyncHandler(async (req, res) => {
 
+restaurantsRouter.get('/:restaurantid(\\d+)/reviews/delete/:id(\\d+)', requireAuth,
+asyncHandler(async (req, res) => {
+    const reviewId = req.params.id;
+    // const restaurantId = req.params.restaurantid;
+    const review = await db.Review.findByPk(reviewId);
 
-
-
+    res.render('review-delete', {
+        title: "Delete Review",
+        review,
+    })
 
 
 
 }));
+
+restaurantsRouter.post('/:restaurantid(\\d+)/reviews/delete/:id(\\d+)',
+    requireAuth,
+    asyncHandler(async (req, res) => {
+        const restaurantId = req.params.restaurantid;
+        const reviewId = req.params.id;
+        const review = await Review.findByPk(reviewId);
+
+        //delete if review can be found
+        await review.destroy();
+        res.redirect(`/restaurants/${restaurantId}/reviews`
+        )
+}));
+
+
+
 
 
 
