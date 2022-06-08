@@ -98,52 +98,72 @@ restaurantsRouter.post('/:id(\\d+)/reviews/new', requireAuth, csrfProtection, re
 
 
 
-// review
+restaurantsRouter.get('/reviews',asyncHandler( async (req, res) => {
+    console.log('hit / routes');
+    res.send("ReviewsTest");
 
-// will require
-// requireauth
-// require csrfToken
-// restaurantsRouter.get('/reviews/edit/:id(\\d+)',
-//   asyncHandler(async (req, res) => {
-//     const reviewId = req.params.id;
-//     console.log(reviewId);
-//     const review = await db.Review.findByPk(reviewId);
-//     res.render('review-edit', {
-//         review,
-//         // csrfToken: req.csrfToken(),
-//     });
-// }));
+
+}));
 
 
 
-//need csrf
-// restaurantsRouter.post('/reviews/edit/:id(\\d+)', reviewValidator,
-//   asyncHandler(async (req, res) => {
-//     const reviewId = req.params.id;
-//     const reviewToUpdate = await db.Review.findByPk(reviewId);
+restaurantsRouter.get('/:restaurantid(\\d+)/reviews/edit/:id(\\d+)', csrfProtection,
+    requireAuth,
+    reviewValidator,
+    asyncHandler(async (req, res) => {
+        console.log("hit the get route")
+        const restaurantId = req.params.restaurantid;
+        const reviewId = req.params.id;
+        console.log(reviewId);
+        const review = await db.Review.findByPk(reviewId);
+        res.render('review-edit', {
+            title: "Edit Review",
+            reviewId,
+            restaurantId,
+            csrfToken: req.csrfToken(),
+        });
+}));
 
-//     const {
-//         review
-//     } = req.body
+restaurantsRouter.post('/:restaurantid(\\d+)/reviews/edit/:id(\\d+)', csrfProtection,
+    requireAuth,
+    reviewValidator,
+    asyncHandler(async (req, res) => {
+        console.log("hit the post route");
+        const restaurantId = req.params.restaurantid;
+        const reviewId = req.params.id;
+        const review = await db.Review.findByPk(reviewId);
 
 
-//     const validatorErrors = validationResult(req);
+        const validatorErrors = validationResult(req);
+        if (validatorErrors.isEmpty()) {
+        await review.update({review : req.body.review});
 
-//     if (validatorErrors.isEmpty()) {
-//       await reviewToUpdate.update(review);
-//       res.redirect('/:id(\\d+)/reviews/:reviewid(\\d+)');
-//     } else {
-//       const errors = validatorErrors.array().map((error) => error.msg);
-//       res.render('review-edit', {
-//         title: 'Edit Review',
-//         review: { ...review, id: reviewId },
-//         errors,
-//         // csrfToken: req.csrfToken(),
-//     });
-// }
-// }));
+        res.redirect(`/restaurants/${restaurantId}/reviews`)
+        } else {
+        const errors = validatorErrors.array().map((error) => error.msg);
+        res.render('review-edit', {
+            title: 'Edit Review',
+            review,
+            reviewId,
+            restaurantId,
+            errors,
+            csrfToken: req.csrfToken(),
+        });
+    }
+}));
+
+restaurantsRouter.delete('/:restaurantid(\\d+)/reviews/:id(\\d+)',
+    csrfProtection,
+    requireAuth,
+    asyncHandler(async (req, res) => {
 
 
+
+
+
+
+
+}));
 
 
 

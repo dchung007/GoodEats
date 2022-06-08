@@ -1,7 +1,7 @@
 extends layout.pug
 
 block content
-  form(action=`/reviews/edit/${reviewId}` method='post')
+  form(action=`/restaurants/${restaurantId}/reviews/edit/${reviewId}` method='post')
     p
       input(type="hidden" name='_csrf' value=csrfToken)
       input(type='textarea', name='review', value=review required)
