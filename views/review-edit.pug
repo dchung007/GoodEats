@@ -1,10 +1,10 @@
 extends layout.pug
 
 block content
-  form(action=`/edit/${id}` method='post')
+  form(action=`/reviews/edit/${reviewId}` method='post')
     p
-    p
-      input(type='text', name='title', value='')
+      input(type="hidden" name='_csrf' value=csrfToken)
+      input(type='textarea', name='review', value=review required)
     div(class='py-4')
-      button(type='submit' class='btn btn-primary' href = `/${id}`) Edit Review
+      button(type='submit' class='btn btn-warning ml-2') Edit Review
       a(href='/' class='btn btn-warning ml-2') Cancel

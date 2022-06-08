@@ -14,52 +14,50 @@ const reviewValidator = [
         .withMessage('Please provide a review')
 ];
 
-reviewsRouter.get('/:id(\\d+)',asyncHandler( async (req, res) => {
-    // console.log('hit / routes')
-    // res.send("test")
-    const reviewId = req.params.id;
-    console.log(reviewId);
-    const review = await db.Review.findByPk(reviewId);
-    res.send(review);
+reviewsRouter.get('/',asyncHandler( async (req, res) => {
+    console.log('hit / routes');
+    res.send("test");
+
 
 }));
 
 
 
-reviewsRouter.get('/edit/:id(\\d+)',
+reviewsRouter.get('/edit/:id(\\d+)', csrfProtection,
+reviewValidator,
   asyncHandler(async (req, res) => {
+    console.log("hit the get route")
     const reviewId = req.params.id;
     console.log(reviewId);
     const review = await db.Review.findByPk(reviewId);
     res.render('review-edit', {
         title: "Edit Review",
-        review,
-        // csrfToken: req.csrfToken(),
+        reviewId,
+        csrfToken: req.csrfToken(),
     });
 }));
 
-reviewsRouter.post('/edit/:id(\\d+)', reviewValidator,
+reviewsRouter.post('/edit/:id(\\d+)', csrfProtection,
+reviewValidator,
   asyncHandler(async (req, res) => {
+    console.log("hit the post route");
     const reviewId = req.params.id;
-    const reviewToUpdate = await db.Review.findByPk(reviewId);
-
-    const {
-        review
-    } = req.body
+    const review = await db.Review.findByPk(reviewId);
 
 
     const validatorErrors = validationResult(req);
-
     if (validatorErrors.isEmpty()) {
-      await reviewToUpdate.update(review);
-      res.redirect('/:id(\\d+)');
+      await review.update({review : req.body.review});
+
+      res.redirect('');
     } else {
       const errors = validatorErrors.array().map((error) => error.msg);
       res.render('review-edit', {
         title: 'Edit Review',
-        review: { ...review, id: reviewId },
+        review,
+        reviewId,
         errors,
-        // csrfToken: req.csrfToken(),
+        csrfToken: req.csrfToken(),
     });
 }
 }));
