@@ -44,10 +44,10 @@ restaurantsRouter.get('/:id(\\d+)/reviews', asyncHandler(async (req, res) => {
 }))
 
 // CREATE operation for reviews
-// need requireAuth here once we fix that
-restaurantsRouter.get('/:id(\\d+)/reviews/new', csrfProtection, asyncHandler(async (req, res) => {
+restaurantsRouter.get('/:id(\\d+)/reviews/new', requireAuth, csrfProtection, asyncHandler(async (req, res) => {
     const restaurantId = req.params.id
     const restaurant = await db.Restaurant.findByPk(restaurantId);
+    console.log(res.locals.authenticated)
     const review = db.Review.build();
     res.render('create-review', {
         title: "Create Review",
@@ -64,8 +64,7 @@ const reviewValidator = [
 ];
 
 // this throws a 404 error
-// need requireAuth here once we fix that
-restaurantsRouter.post('/:id(\\d+)/reviews/new', csrfProtection, reviewValidator, asyncHandler(async (req, res) => {
+restaurantsRouter.post('/:id(\\d+)/reviews/new', requireAuth, csrfProtection, reviewValidator, asyncHandler(async (req, res) => {
     const {
         review
     } = req.body
@@ -74,7 +73,7 @@ restaurantsRouter.post('/:id(\\d+)/reviews/new', csrfProtection, reviewValidator
         userId: req.locals.user.id,
         restaurantId: req.locals.restaurant.id,
         review
-    })
+    });
 
     const validatorErrors = validationResult(req);
 
@@ -88,9 +87,9 @@ restaurantsRouter.post('/:id(\\d+)/reviews/new', csrfProtection, reviewValidator
             newReview,
             errors,
             csrfToken: req.csrfToken(),
-        })
-    }
-}))
+        });
+    };
+}));
 
 
 

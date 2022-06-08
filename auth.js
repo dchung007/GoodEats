@@ -12,7 +12,7 @@ const signOutUser = (req, res) => {
 
 const requireAuth = (req, res, next) => {
     if (!res.locals.authenticated) {
-      return res.redirect('/users/sign-up');
+      return res.redirect('/users/register');
     }
     return next();
 };
