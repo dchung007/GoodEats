@@ -4,10 +4,9 @@ block content
   h1= restaurant.name
   h2 Reviews
   div
-  div
     each review in restaurant.Reviews
       p.reviewName= review.review
-        button(class='delete-review-button' id=`delete-post-${reviewId}`) Delete
+        a(class='delete-button' id=`delete-post-${review.id}` href=`/restaurants/${review.restaurantId}/reviews/delete/${review.id}`)   Delete
 
   p: a(href=`/restaurants/${restaurant.id}}`)= restaurant.name
   p: a(href=`/restaurants/${restaurant.id}/reviews/new`) Write a review
