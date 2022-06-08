@@ -73,6 +73,7 @@ router.post('/register', userValidators, csrfProtection, asyncHandler(async (req
     res.redirect('/');
   } else {
     const errors = validatorErrors.array().map((error) => error.msg);
+    console.log(errors);
     res.render('create-account', {
       title: 'Create Account',
       username,

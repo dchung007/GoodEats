@@ -2,6 +2,11 @@ extends layout.pug
 
 block content
   h2 Leave us a review!
+  if errors
+      div(class='create-review-error')
+        ul
+          each error in errors
+            li= error
     form(method="post" action=`/restaurants/${restaurant.id}/reviews/new`)
       input(type="hidden" name="_csrf" value=csrfToken)
       label(for="review") Your review:
