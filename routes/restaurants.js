@@ -92,4 +92,58 @@ restaurantsRouter.post('/:id(\\d+)/reviews/new', csrfProtection, reviewValidator
     }
 }))
 
+
+
+
+
+
+//review
+
+//will require
+//requireauth
+//require csrfToken
+// restaurantsRouter.get('/reviews/edit/:id(\\d+)',
+//   asyncHandler(async (req, res) => {
+//     const reviewId = req.params.id;
+//     console.log(reviewId);
+//     const review = await db.Review.findByPk(reviewId);
+//     res.render('review-edit', {
+//         review,
+//         // csrfToken: req.csrfToken(),
+//     });
+// }));
+
+
+
+//need csrf
+// restaurantsRouter.post('/reviews/edit/:id(\\d+)', reviewValidator,
+//   asyncHandler(async (req, res) => {
+//     const reviewId = req.params.id;
+//     const reviewToUpdate = await db.Review.findByPk(reviewId);
+
+//     const {
+//         review
+//     } = req.body
+
+
+//     const validatorErrors = validationResult(req);
+
+//     if (validatorErrors.isEmpty()) {
+//       await reviewToUpdate.update(review);
+//       res.redirect('/:id(\\d+)/reviews/:reviewid(\\d+)');
+//     } else {
+//       const errors = validatorErrors.array().map((error) => error.msg);
+//       res.render('review-edit', {
+//         title: 'Edit Review',
+//         review: { ...review, id: reviewId },
+//         errors,
+//         // csrfToken: req.csrfToken(),
+//     });
+// }
+// }));
+
+
+
+
+
 module.exports = restaurantsRouter;
