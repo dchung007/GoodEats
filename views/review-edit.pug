@@ -1,6 +1,11 @@
 extends layout.pug
 
 block content
+  if errors
+      div(class='review-edit-error')
+        ul
+          each error in errors
+            li= error
   form(action=`/restaurants/${restaurantId}/reviews/edit/${reviewId}` method='post')
     p
       input(type="hidden" name='_csrf' value=csrfToken)
