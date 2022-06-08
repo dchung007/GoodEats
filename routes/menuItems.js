@@ -55,4 +55,12 @@ menuItemsRouter.put('/:id(\\d+)', async (req, res) => {
 
   res.json({ message: 'New item added!', item })
 })
+
+menuItemsRouter.delete('/:id(\\d+)', async(req, res) => {
+  const item = await MenuItem.findByPk(req.params.id)
+  await item.destroy()
+
+  res.json({message: 'Item deleted.'})
+})
+
 module.exports = menuItemsRouter;
