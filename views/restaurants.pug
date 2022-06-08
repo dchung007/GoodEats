@@ -5,9 +5,5 @@ block content
   div.allRestaurantsContainer
     each restaurant in restaurants
       div.oneRestaurantContainer
-<<<<<<< HEAD
-        a(href=`/restaurants/${restaurant.id}`)= restaurant.name
-=======
         h2: a(href=`/restaurants/${restaurant.id}`)= restaurant.name
->>>>>>> d704120efc8617399b8b48e1c2bbed4c0d34e6e8
         p= restaurant.description

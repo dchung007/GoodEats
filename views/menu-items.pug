@@ -19,6 +19,7 @@ block content
           input(type="text" name="description" value=item.description id=`${item.id}-edit-description`)
           button(class="edit-submit" id=`edit-submit-${item.id}`) Submit Edit
   form(action=`/restaurants/${restaurant.id}/menu-items`, method="post")
+    input(type="hidden" name="_csurf" value=csrfToken)
     label Item name
     input(type="text" name="name")
     label Description

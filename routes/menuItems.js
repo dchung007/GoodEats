@@ -10,7 +10,7 @@ const menuItemsRouter = express.Router();
 
 const bcrypt = require('bcryptjs');
 
-menuItemsRouter.get('/', asyncHandler(async (req, res) => {
+menuItemsRouter.get('/', csrfProtection, asyncHandler(async (req, res) => {
   const path = req.baseUrl.split('/')
   // console.log(path[2])
   const restaurantId = path[2];
@@ -25,7 +25,7 @@ menuItemsRouter.get('/', asyncHandler(async (req, res) => {
     console.log(req.session.auth.userId)
     loggedInUser = req.session.auth.userId
   }
-  res.render('menu-items', { restaurant, loggedInUser })
+  res.render('menu-items', { restaurant, loggedInUser, csrfToken: req.csrfToken() })
 }))
 
 const itemValidators = [
@@ -51,11 +51,11 @@ menuItemsRouter.post('/', csrfProtection, itemValidators, asyncHandler(async (re
   const restaurant = await db.Restaurant.findByPk(restaurantId, {
     include: [MenuItem],
   });
-  res.render('menu-items', { restaurant })
+  res.render('menu-items', { restaurant, csrfToken: req.csrfToken() })
 }))
 
 
-menuItemsRouter.put('/:id(\\d+)', csrfProtection, itemValidators, async (req, res) => {
+menuItemsRouter.put('/:id(\\d+)', async (req, res) => {
   console.log(req.body)
   const item = await MenuItem.findByPk(req.params.id)
   item.name = req.body.name
@@ -65,7 +65,7 @@ menuItemsRouter.put('/:id(\\d+)', csrfProtection, itemValidators, async (req, re
   res.json({ message: 'New item added!', item })
 })
 
-menuItemsRouter.delete('/:id(\\d+)', csrfProtection, async (req, res) => {
+menuItemsRouter.delete('/:id(\\d+)', async (req, res) => {
   const item = await MenuItem.findByPk(req.params.id)
   await item.destroy()
 

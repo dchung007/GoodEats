@@ -26,20 +26,24 @@ restaurantsRouter.get('/', asyncHandler(async (req, res) => {
 restaurantsRouter.get('/:id(\\d+)', asyncHandler(async (req, res) => {
     const restaurantId = req.params.id
     const restaurant = await db.Restaurant.findByPk(restaurantId, {
-        include: [MenuItem, Review],
+        include: [
+            { model: MenuItem, limit: 2 },
+            { model: Review, limit: 2 }
+        ],
 
     });
 
-    console.log(restaurant);
+    // console.log(restaurant);
     res.render('restaurant', {
         title: restaurant.name,
         restaurant,
+        restaurantId
     });
 }))
 
 
 
-restaurantsRouter.get('/:id(\\d+)', async (req,res) => {
+restaurantsRouter.get('/:id(\\d+)', async (req, res) => {
     res.send('test')
 })
 

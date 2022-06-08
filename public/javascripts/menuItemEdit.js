@@ -3,8 +3,9 @@ const editBtns = document.querySelectorAll('.edit-btn')
 for (let i = 0; i < editBtns.length; i++) {
   const btn = editBtns[i];
   btn.addEventListener('click', (e) => {
-    const itemId = e.target.id.split('-')[2]
-    // console.log(e)
+    // let itemId = e.target.id.split('-')[2]
+    const itemId = btn.id.split('-')[2]
+    // console.log(itemId)
     const form = document.getElementById(`edit-form-${itemId}`)
     if (form.classList.contains('hidden')) {
       form.classList.remove('hidden')
