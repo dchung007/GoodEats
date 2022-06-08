@@ -39,4 +39,8 @@ restaurantsRouter.get('/:id(\\d+)', asyncHandler(async (req, res) => {
 
 
 
+restaurantsRouter.get('/:id(\\d+)', async (req,res) => {
+    res.send('test')
+})
+
 module.exports = restaurantsRouter;
