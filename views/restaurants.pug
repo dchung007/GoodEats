@@ -5,5 +5,5 @@ block content
   div.allRestaurantsContainer
     each restaurant in restaurants
       div.oneRestaurantContainer
-        a(href=`/restaurants/${restaurant.id}`)= restaurant.name
+        h2: a(href=`/restaurants/${restaurant.id}`)= restaurant.name
         p= restaurant.description

@@ -1,8 +1,12 @@
 const express = require('express');
 const { check, validationResult } = require('express-validator');
 const db = require("../db/models");
-const {User, Restaurant, Review, MenuItem} = db;
+const { User, Restaurant, Review, MenuItem } = db;
 const { csrfProtection, asyncHandler, csrf } = require('./utils');
+
+const menuItemsRouter = require('./menuItems')
+
+restaurantsRouter.use('/:id(\\d+)/menu-items', menuItemsRouter);
 
 const { requireAuth } = require('../auth');
 
@@ -22,10 +26,13 @@ restaurantsRouter.get('/',asyncHandler( async (req, res) => {
 restaurantsRouter.get('/:id(\\d+)', asyncHandler(async (req, res) => {
     const restaurantId = req.params.id
     const restaurant = await db.Restaurant.findByPk(restaurantId, {
-        include: [MenuItem, Review],
+        include: [
+            { model: MenuItem, limit: 2 },
+            { model: Review, limit: 2 }
+        ],
 
     });
-    console.log(restaurant);
+  
     res.render('restaurant', {
         title: restaurant.name,
         restaurant,
@@ -182,5 +189,10 @@ restaurantsRouter.post('/:restaurantid(\\d+)/reviews/delete/:id(\\d+)',
 
 
 
+
+
+restaurantsRouter.get('/:id(\\d+)', async (req, res) => {
+    res.send('test')
+})
 
 module.exports = restaurantsRouter;
