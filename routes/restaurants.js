@@ -6,14 +6,15 @@ const { csrfProtection, asyncHandler, csrf } = require('./utils');
 
 const menuItemsRouter = require('./menuItems')
 
-restaurantsRouter.use('/:id(\\d+)/menu-items', menuItemsRouter);
+
 
 const { requireAuth } = require('../auth');
 
 const restaurantsRouter = express.Router();
 
+restaurantsRouter.use('/:id(\\d+)/menu-items', menuItemsRouter);
 
-restaurantsRouter.get('/',asyncHandler( async (req, res) => {
+restaurantsRouter.get('/', asyncHandler(async (req, res) => {
     const restaurants = await db.Restaurant.findAll();
     // console.log('hit / routes')
     // res.send("test")
@@ -32,7 +33,7 @@ restaurantsRouter.get('/:id(\\d+)', asyncHandler(async (req, res) => {
         ],
 
     });
-  
+
     res.render('restaurant', {
         title: restaurant.name,
         restaurant,
@@ -89,7 +90,7 @@ restaurantsRouter.post('/:id(\\d+)/reviews/new', requireAuth, csrfProtection, re
     if (validatorErrors.isEmpty()) {
         await newReview.save();
         return res.redirect(`/restaurants/${restaurantId}/reviews`);
-      } else {
+    } else {
         const errors = validatorErrors.array().map((error) => error.msg);
         res.render('create-review', {
             title: "Create Review",
@@ -102,7 +103,7 @@ restaurantsRouter.post('/:id(\\d+)/reviews/new', requireAuth, csrfProtection, re
 
 
 
-restaurantsRouter.get('/reviews',asyncHandler( async (req, res) => {
+restaurantsRouter.get('/reviews', asyncHandler(async (req, res) => {
     console.log('hit / routes');
     res.send("ReviewsTest");
 
@@ -126,7 +127,7 @@ restaurantsRouter.get('/:restaurantid(\\d+)/reviews/edit/:id(\\d+)', csrfProtect
             restaurantId,
             csrfToken: req.csrfToken(),
         });
-}));
+    }));
 
 restaurantsRouter.post('/:restaurantid(\\d+)/reviews/edit/:id(\\d+)', csrfProtection,
     requireAuth,
@@ -140,37 +141,37 @@ restaurantsRouter.post('/:restaurantid(\\d+)/reviews/edit/:id(\\d+)', csrfProtec
 
         const validatorErrors = validationResult(req);
         if (validatorErrors.isEmpty()) {
-        await review.update({review : req.body.review});
+            await review.update({ review: req.body.review });
 
-        res.redirect(`/restaurants/${restaurantId}/reviews`)
+            res.redirect(`/restaurants/${restaurantId}/reviews`)
         } else {
-        const errors = validatorErrors.array().map((error) => error.msg);
-        res.render('review-edit', {
-            title: 'Edit Review',
-            review,
-            reviewId,
-            restaurantId,
-            errors,
-            csrfToken: req.csrfToken(),
-        });
-    }
-}));
+            const errors = validatorErrors.array().map((error) => error.msg);
+            res.render('review-edit', {
+                title: 'Edit Review',
+                review,
+                reviewId,
+                restaurantId,
+                errors,
+                csrfToken: req.csrfToken(),
+            });
+        }
+    }));
 
 
 restaurantsRouter.get('/:restaurantid(\\d+)/reviews/delete/:id(\\d+)', requireAuth,
-asyncHandler(async (req, res) => {
-    const reviewId = req.params.id;
-    // const restaurantId = req.params.restaurantid;
-    const review = await db.Review.findByPk(reviewId);
+    asyncHandler(async (req, res) => {
+        const reviewId = req.params.id;
+        // const restaurantId = req.params.restaurantid;
+        const review = await db.Review.findByPk(reviewId);
 
-    res.render('review-delete', {
-        title: "Delete Review",
-        review,
-    })
+        res.render('review-delete', {
+            title: "Delete Review",
+            review,
+        })
 
 
 
-}));
+    }));
 
 restaurantsRouter.post('/:restaurantid(\\d+)/reviews/delete/:id(\\d+)',
     requireAuth,
@@ -183,7 +184,7 @@ restaurantsRouter.post('/:restaurantid(\\d+)/reviews/delete/:id(\\d+)',
         await review.destroy();
         res.redirect(`/restaurants/${restaurantId}/reviews`
         )
-}));
+    }));
 
 
 
