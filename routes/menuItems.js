@@ -20,6 +20,7 @@ menuItemsRouter.get('/', asyncHandler(async (req, res) => {
   // console.log(restaurant)
   // Modifciation below
   let loggedInUser
+  console.log(req.session)
   if (req.session.auth) {
     console.log(req.session.auth.userId)
     loggedInUser = req.session.auth.userId
@@ -27,7 +28,15 @@ menuItemsRouter.get('/', asyncHandler(async (req, res) => {
   res.render('menu-items', { restaurant, loggedInUser })
 }))
 
-menuItemsRouter.post('/', asyncHandler(async (req, res) => {
+const itemValidators = [
+  check('name')
+    .exists({ checkFalsy: true })
+    .withMessage('Please provide a value for Item Name'),
+  check('description')
+    .exists({ checkFalsy: true })
+    .withMessage('Please provide a value for Item Name')
+]
+menuItemsRouter.post('/', csrfProtection, itemValidators, asyncHandler(async (req, res) => {
   const path = req.baseUrl.split('/')
   // console.log(path[2])
   const restaurantId = path[2];
@@ -46,7 +55,7 @@ menuItemsRouter.post('/', asyncHandler(async (req, res) => {
 }))
 
 
-menuItemsRouter.put('/:id(\\d+)', async (req, res) => {
+menuItemsRouter.put('/:id(\\d+)', csrfProtection, itemValidators, async (req, res) => {
   console.log(req.body)
   const item = await MenuItem.findByPk(req.params.id)
   item.name = req.body.name
@@ -56,11 +65,11 @@ menuItemsRouter.put('/:id(\\d+)', async (req, res) => {
   res.json({ message: 'New item added!', item })
 })
 
-menuItemsRouter.delete('/:id(\\d+)', async(req, res) => {
+menuItemsRouter.delete('/:id(\\d+)', csrfProtection, async (req, res) => {
   const item = await MenuItem.findByPk(req.params.id)
   await item.destroy()
 
-  res.json({message: 'Item deleted.'})
+  res.json({ message: 'Item deleted.' })
 })
 
 module.exports = menuItemsRouter;
