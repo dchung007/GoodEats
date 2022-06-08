@@ -4,7 +4,7 @@ const db = require("../db/models");
 const {User, Restaurant} = db;
 const { csrfProtection, asyncHandler, csrf } = require('./utils');
 
-const { signInUser } = require('../auth');
+const { signInUser, signOutUser } = require('../auth');
 
 const router = express.Router();
 
@@ -103,7 +103,7 @@ router.post('/sign-in', signInValidator, csrfProtection, asyncHandler( async (re
 
   if (validatorErrors.isEmpty()) {
     const user = await User.findOne({ where: { username } }); //*********** Fix this */
-    console.log(user.password)
+    // console.log(user.password)
     if (user !== null) { //if we have an account
       const checkPassword = await bcrypt.compare(password, user.password.toString());
       if (checkPassword) {
@@ -126,7 +126,7 @@ router.post('/sign-in', signInValidator, csrfProtection, asyncHandler( async (re
 
 router.post('/sign-out', (req, res) => {
   signOutUser(req, res);
-  res.redirect('/sign-in');
+  res.redirect('/');
 });
 
 module.exports = router;

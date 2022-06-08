@@ -5,5 +5,5 @@ block content
     form(method="post" action=`/${restaurant.id}/reviews/new`)
       input(type="hidden" name="_csrf" value=csrfToken)
       label(for="review") Your review:
-      input(type="text" id="review" name="review" value=review required)\
+      textarea(id="review" name="review" value=review required)
       button(type="submit") Submit
