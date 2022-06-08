@@ -1,0 +1,11 @@
+extends layout.pug
+
+block content
+  h1= restaurant.name
+  h2 Reviews
+  div
+  div
+    each review in restaurant.Reviews
+      p.reviewName= review.review
+
+  p: a(href=`/restaurants/${restaurant.id}`)= restaurant.name 

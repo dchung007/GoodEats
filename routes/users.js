@@ -122,7 +122,11 @@ router.post('/sign-in', signInValidator, csrfProtection, asyncHandler( async (re
       errors,
       csrfToken: req.csrfToken(),
     });
-
-
 }));
+
+router.post('/sign-out', (req, res) => {
+  signOutUser(req, res);
+  res.redirect('/sign-in');
+});
+
 module.exports = router;

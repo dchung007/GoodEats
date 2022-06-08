@@ -4,15 +4,10 @@ const db = require("../db/models");
 const {User, Restaurant, Review, MenuItem} = db;
 const { csrfProtection, asyncHandler, csrf } = require('./utils');
 
-// const menuItemsRouter= require('./routes/menuItems')
-// const reviews = require('./routes/reviews');
+const { requireAuth } = require('../auth');
 
 const restaurantsRouter = express.Router();
 
-// restaurantsRouter.use('/:id(\\d+)/reviews', reviewsRouter);
-// restaurantsRouter.use('/menuItems',menuItemsRouter);
-
-// console.log("hit restaurants router")
 restaurantsRouter.get('/',asyncHandler( async (req, res) => {
     const restaurants = await db.Restaurant.findAll();
     // console.log('hit / routes')
@@ -29,7 +24,6 @@ restaurantsRouter.get('/:id(\\d+)', asyncHandler(async (req, res) => {
         include: [MenuItem, Review],
 
     });
-
     console.log(restaurant);
     res.render('restaurant', {
         title: restaurant.name,
@@ -37,5 +31,60 @@ restaurantsRouter.get('/:id(\\d+)', asyncHandler(async (req, res) => {
     });
 }))
 
+// READ operation for reviews
+restaurantsRouter.get('/:id(\\d+)/reviews', asyncHandler(async (req, res) => {
+    const restaurantId = req.params.id
+    const restaurant = await db.Restaurant.findByPk(restaurantId, {
+        include: [Review],
+    });
+    res.render('reviews', {
+        title: "Reviews",
+        restaurant
+    })
+}))
+
+// CREATE operation for reviews
+restaurantsRouter.get('/:id(\\d+)/reviews/new', requireAuth, csrfProtection, (req, res) => {
+    // const review = db.Review.build();
+    // res.render('create-review', {
+    //     title: "Create Review",
+    //     review,
+    //     csrfToken: req.csrfToken(),
+    // })
+});
+
+// const reviewValidator = [
+//     check('review')
+//         .exists({ checkFalsy: true })
+//         .withMessage('Please provide a review')
+// ];
+
+// restaurantsRouter.post('/:id(\\d+)/reviews/new', requireAuth, csrfProtection, reviewValidator, asyncHandler(async (req, res) => {
+//     const {
+//         userId,
+//         restaurantId,
+//         review,
+//     } = req.body
+
+//     const newReview = await db.Review.create({
+//         userId: req.user.id,
+//         restaurantId: req.restaurant.id,
+//         review
+//     })
+
+//     const validatorErrors = validationResult(req);
+
+//     if (validatorErrors.isEmpty()) {
+//         res.redirect('/:id(\\d+)/reviews');
+//       } else {
+//         const errors = validatorErrors.array().map((error) => error.msg);
+//         res.render('create-review', {
+//             title: "Create Review",
+//             review,
+//             errors,
+//             csrfToken: req.csrfToken(),
+//         })
+//     }
+// }))
 
 module.exports = restaurantsRouter;
