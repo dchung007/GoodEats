@@ -1,12 +1,21 @@
 extends layout.pug
 
 block content
+  script(src="/javascripts/menuItemEdit.js" type="module")
   h1 Menu
 
-  div
+  div(id=`restaurant-${restaurant.id}-menu-items`)
     each item in restaurant.MenuItems
-      h2.itemName= item.name
-      p.itemDescription= item.description
+      div.single-item
+        h2.itemName(id=`${item.id}-name`)= item.name
+        p.itemDescription(id=`${item.id}-description`)= item.description
+        button(class="edit-btn" id=`edit-btn-${item.id}`) Edit
+        form(class="hidden" id=`edit-form-${item.id}`)
+          label Item Name
+          input(type="text" name="name" value=item.name id=`${item.id}-edit-name`)
+          label Description
+          input(type="text" name="description" value=item.description id=`${item.id}-edit-description`)
+          button(class="edit-submit" id=`edit-submit-${item.id}`) Submit Edit
   form(action=`/restaurants/${restaurant.id}/menu-items`, method="post")
     label Item name
     input(type="text" name="name")

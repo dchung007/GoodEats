@@ -18,7 +18,13 @@ menuItemsRouter.get('/', asyncHandler(async (req, res) => {
     include: [MenuItem],
   });
   // console.log(restaurant)
-  res.render('menu-items', { restaurant })
+  // Modifciation below
+  let loggedInUser
+  if (req.session.auth) {
+    console.log(req.session.auth.userId)
+    loggedInUser = req.session.auth.userId
+  }
+  res.render('menu-items', { restaurant, loggedInUser })
 }))
 
 menuItemsRouter.post('/', asyncHandler(async (req, res) => {
@@ -33,7 +39,20 @@ menuItemsRouter.post('/', asyncHandler(async (req, res) => {
     description,
     restaurantId
   })
-  res.send('Item was created successfully.')
+  const restaurant = await db.Restaurant.findByPk(restaurantId, {
+    include: [MenuItem],
+  });
+  res.render('menu-items', { restaurant })
 }))
 
+
+menuItemsRouter.put('/:id(\\d+)', async (req, res) => {
+  console.log(req.body)
+  const item = await MenuItem.findByPk(req.params.id)
+  item.name = req.body.name
+  item.description = req.body.description
+  await item.save()
+
+  res.json({ message: 'New item added!', item })
+})
 module.exports = menuItemsRouter;
