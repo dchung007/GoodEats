@@ -1,0 +1,10 @@
+extends layout.pug
+
+block content
+  div(class='py-4')
+    p Proceed with deleting this review?
+  div
+    form(action=`/restaurants/${review.restaurantId}/reviews/delete/${review.id}` method='post')
+      input(type='hidden' name='_csrf' value=csrfToken)
+      button(class='btn btn-danger' type='submit') Delete Review
+      a(class='btn btn-warning ml-2' href='/' role='button') Cancel
