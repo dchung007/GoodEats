@@ -8,6 +8,7 @@ const { requireAuth } = require('../auth');
 
 const restaurantsRouter = express.Router();
 
+
 restaurantsRouter.get('/',asyncHandler( async (req, res) => {
     const restaurants = await db.Restaurant.findAll();
     // console.log('hit / routes')
@@ -28,6 +29,7 @@ restaurantsRouter.get('/:id(\\d+)', asyncHandler(async (req, res) => {
     res.render('restaurant', {
         title: restaurant.name,
         restaurant,
+        restaurantId
     });
 }))
 
@@ -63,15 +65,15 @@ const reviewValidator = [
         .withMessage('Please provide a review')
 ];
 
-// this throws a 404 error
 restaurantsRouter.post('/:id(\\d+)/reviews/new', requireAuth, csrfProtection, reviewValidator, asyncHandler(async (req, res) => {
+    const restaurantId = req.params.id
     const {
         review
     } = req.body
 
     const newReview = db.Review.build({
-        userId: req.locals.user.id,
-        restaurantId: req.locals.restaurant.id,
+        userId: req.session.auth.userId,
+        restaurantId,
         review
     });
 
@@ -79,7 +81,7 @@ restaurantsRouter.post('/:id(\\d+)/reviews/new', requireAuth, csrfProtection, re
 
     if (validatorErrors.isEmpty()) {
         await newReview.save();
-        res.redirect('/:id(\\d+)/reviews');
+        return res.redirect(`/restaurants/${restaurantId}/reviews`);
       } else {
         const errors = validatorErrors.array().map((error) => error.msg);
         res.render('create-review', {
@@ -96,11 +98,11 @@ restaurantsRouter.post('/:id(\\d+)/reviews/new', requireAuth, csrfProtection, re
 
 
 
-//review
+// review
 
-//will require
-//requireauth
-//require csrfToken
+// will require
+// requireauth
+// require csrfToken
 // restaurantsRouter.get('/reviews/edit/:id(\\d+)',
 //   asyncHandler(async (req, res) => {
 //     const reviewId = req.params.id;
