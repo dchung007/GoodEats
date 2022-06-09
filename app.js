@@ -46,11 +46,6 @@ app.use(restoreUser);
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/restaurants', restaurantsRouter);
-<<<<<<< HEAD
-// app.use('/reviews', reviewsRouter); dont think we need this anymore? -Mineh
-
-=======
->>>>>>> main
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
