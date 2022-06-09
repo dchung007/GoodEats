@@ -7,13 +7,15 @@ const { csrfProtection, asyncHandler, csrf } = require('./utils');
 const menuItemsRouter = require('./menuItems')
 
 
-
 const { requireAuth } = require('../auth');
 
 const restaurantsRouter = express.Router();
-
 restaurantsRouter.use('/:id(\\d+)/menu-items', menuItemsRouter);
 
+//menu router setup
+restaurantsRouter.use('/:id(\\d+)/menu-items', menuItemsRouter);
+
+//middleware: none; all users can see
 restaurantsRouter.get('/', asyncHandler(async (req, res) => {
     const restaurants = await db.Restaurant.findAll();
     // console.log('hit / routes')
@@ -24,6 +26,7 @@ restaurantsRouter.get('/', asyncHandler(async (req, res) => {
     })
 }));
 
+//for get restaurant: all users can view (including unauthorized)
 restaurantsRouter.get('/:id(\\d+)', asyncHandler(async (req, res) => {
     const restaurantId = req.params.id
     const restaurant = await db.Restaurant.findByPk(restaurantId, {
@@ -42,18 +45,26 @@ restaurantsRouter.get('/:id(\\d+)', asyncHandler(async (req, res) => {
 }))
 
 // READ operation for reviews
+// ALL users can view review; no need to use auth
 restaurantsRouter.get('/:id(\\d+)/reviews', asyncHandler(async (req, res) => {
     const restaurantId = req.params.id
     const restaurant = await db.Restaurant.findByPk(restaurantId, {
         include: [Review],
     });
+
+
+    currentUser = res.locals.user.id;
+    console.log (`Current User Is... ${currentUser}`)
     res.render('reviews', {
         title: "Reviews",
-        restaurant
+        restaurant,
+        currentUser
     })
 }))
 
 // CREATE operation for reviews
+// requireAuth
+// but does not require *which* user
 restaurantsRouter.get('/:id(\\d+)/reviews/new', requireAuth, csrfProtection, asyncHandler(async (req, res) => {
     const restaurantId = req.params.id
     const restaurant = await db.Restaurant.findByPk(restaurantId);
@@ -63,17 +74,24 @@ restaurantsRouter.get('/:id(\\d+)/reviews/new', requireAuth, csrfProtection, asy
         title: "Create Review",
         review,
         restaurant,
-        csrfToken: req.csrfToken(),
+        csrfToken: req.csrfToken()
     })
 }));
 
+
+// check if review edists
+// need everything associated with auth
 const reviewValidator = [
     check('review')
         .exists({ checkFalsy: true })
         .withMessage('Please provide a review')
 ];
 
-restaurantsRouter.post('/:id(\\d+)/reviews/new', requireAuth, csrfProtection, reviewValidator, asyncHandler(async (req, res) => {
+restaurantsRouter.post('/:id(\\d+)/reviews/new',
+    requireAuth,
+    csrfProtection,
+    reviewValidator,
+    asyncHandler(async (req, res) => {
     const restaurantId = req.params.id
     const {
         review
@@ -96,13 +114,13 @@ restaurantsRouter.post('/:id(\\d+)/reviews/new', requireAuth, csrfProtection, re
             title: "Create Review",
             newReview,
             errors,
-            csrfToken: req.csrfToken(),
+            csrfToken: req.csrfToken()
         });
     };
 }));
 
 
-
+// ALL users can get reviews
 restaurantsRouter.get('/reviews', asyncHandler(async (req, res) => {
     console.log('hit / routes');
     res.send("ReviewsTest");
@@ -111,21 +129,47 @@ restaurantsRouter.get('/reviews', asyncHandler(async (req, res) => {
 }));
 
 
+//=============CREATE A CHECK FUNCTION FOR AUTH=================
+const checkPermissions = (review, currentUser) => {
+    if (review.userId !== currentUser.id) {
+      const err = new Error('Illegal operation.');
+      err.status = 403; // Forbidden
+      throw err;
+    }
+  };
 
+
+
+
+
+//=============EDIT REVIEW===============
+//will require auth
+//also WILL need to prevent users from getting into the page where review.userId =/= current user id
+//
 restaurantsRouter.get('/:restaurantid(\\d+)/reviews/edit/:id(\\d+)', csrfProtection,
     requireAuth,
     reviewValidator,
     asyncHandler(async (req, res) => {
-        console.log("hit the get route")
+
+        //get params
         const restaurantId = req.params.restaurantid;
         const reviewId = req.params.id;
-        console.log(reviewId);
+
+        //get review and check auth before rendering
         const review = await db.Review.findByPk(reviewId);
+
+        //check permission?
+        checkPermissions(review, res.locals.user);
+
+
+
+
+
         res.render('review-edit', {
             title: "Edit Review",
             reviewId,
             restaurantId,
-            csrfToken: req.csrfToken(),
+            csrfToken: req.csrfToken()
         });
     }));
 
@@ -137,6 +181,10 @@ restaurantsRouter.post('/:restaurantid(\\d+)/reviews/edit/:id(\\d+)', csrfProtec
         const restaurantId = req.params.restaurantid;
         const reviewId = req.params.id;
         const review = await db.Review.findByPk(reviewId);
+        //check permission?
+        checkPermissions(review, res.locals.user);
+
+
 
 
         const validatorErrors = validationResult(req);
@@ -151,22 +199,30 @@ restaurantsRouter.post('/:restaurantid(\\d+)/reviews/edit/:id(\\d+)', csrfProtec
                 review,
                 reviewId,
                 restaurantId,
-                errors,
-                csrfToken: req.csrfToken(),
+                csrfToken: req.csrfToken()
             });
         }
     }));
 
 
-restaurantsRouter.get('/:restaurantid(\\d+)/reviews/delete/:id(\\d+)', requireAuth,
+restaurantsRouter.get('/:restaurantid(\\d+)/reviews/delete/:id(\\d+)',
+    requireAuth,
+    csrfProtection,
     asyncHandler(async (req, res) => {
         const reviewId = req.params.id;
         // const restaurantId = req.params.restaurantid;
+
         const review = await db.Review.findByPk(reviewId);
+
+        //check permission?
+        checkPermissions(review, res.locals.user);
+
+
 
         res.render('review-delete', {
             title: "Delete Review",
             review,
+            csrfToken: req.csrfToken()
         })
 
 
@@ -175,15 +231,17 @@ restaurantsRouter.get('/:restaurantid(\\d+)/reviews/delete/:id(\\d+)', requireAu
 
 restaurantsRouter.post('/:restaurantid(\\d+)/reviews/delete/:id(\\d+)',
     requireAuth,
+    csrfProtection,
     asyncHandler(async (req, res) => {
         const restaurantId = req.params.restaurantid;
         const reviewId = req.params.id;
         const review = await Review.findByPk(reviewId);
+        //check permission?
+        checkPermissions(review, res.locals.user);
 
         //delete if review can be found
         await review.destroy();
-        res.redirect(`/restaurants/${restaurantId}/reviews`
-        )
+        res.redirect(`/restaurants/${restaurantId}/reviews`)
     }));
 
 
@@ -192,8 +250,8 @@ restaurantsRouter.post('/:restaurantid(\\d+)/reviews/delete/:id(\\d+)',
 
 
 
-restaurantsRouter.get('/:id(\\d+)', async (req, res) => {
-    res.send('test')
-})
+// restaurantsRouter.get('/:id(\\d+)', async (req, res) => {
+//     res.send('test')
+// })
 
 module.exports = restaurantsRouter;
