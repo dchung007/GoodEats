@@ -9,10 +9,14 @@ const { requireAuth } = require('../auth');
 const restaurantShelfRouter = express.Router();
 
 restaurantShelfRouter.get('/', asyncHandler(async (req, res) => {
-    const shelfs = await db.RestaurantShelf.findAll();
+    const restaurants = await db.Restaurant.findAll();
 
     res.render('restaurant-shelf', {
         title: "Restaurant Shelf",
-        shelfs
+        restaurants
     })
 }))
+
+
+
+module.exports = restaurantShelfRouter;

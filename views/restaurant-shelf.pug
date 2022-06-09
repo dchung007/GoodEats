@@ -1,0 +1,9 @@
+extends layout.pug
+
+block content
+  h1 Your Restaurant Shelf
+  div
+    each restaurant in restaurants
+        p= restaurant.name
+        div Want to try
+        div Have tried 

@@ -10,7 +10,7 @@ const { signInUser, signOutUser } = require('../auth');
 
 const router = express.Router();
 
-restaurantShelfRouter.use('/:id(\\d+)/restaurant-shelf', restaurantShelfRouter);
+router.use('/:id(\\d+)/restaurant-shelf', restaurantShelfRouter);
 
 const bcrypt = require('bcryptjs');
 const indexRouter = require('./index');
