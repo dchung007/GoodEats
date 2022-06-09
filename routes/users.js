@@ -4,9 +4,13 @@ const db = require("../db/models");
 const {User, Restaurant} = db;
 const { csrfProtection, asyncHandler, csrf } = require('./utils');
 
+const restaurantShelfRouter = require('./restaurant-shelf');
+
 const { signInUser, signOutUser } = require('../auth');
 
 const router = express.Router();
+
+restaurantShelfRouter.use('/:id(\\d+)/restaurant-shelf', restaurantShelfRouter);
 
 const bcrypt = require('bcryptjs');
 const indexRouter = require('./index');

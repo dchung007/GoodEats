@@ -9,7 +9,7 @@ const SequelizeStore = require('connect-session-sequelize')(session.Store);
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const restaurantsRouter = require('./routes/restaurants');
-const reviewsRouter = require('./routes/reviews');
+// const reviewsRouter = require('./routes/reviews'); dont think we need this anymore? -Mineh
 const { restoreUser } = require('./auth');
 
 const db = require("./db/models");
@@ -47,7 +47,7 @@ app.use(restoreUser);
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/restaurants', restaurantsRouter);
-app.use('/reviews', reviewsRouter);
+// app.use('/reviews', reviewsRouter); dont think we need this anymore? -Mineh
 
 
 // catch 404 and forward to error handler
