@@ -5,7 +5,7 @@ const { User, Restaurant, MenuItem } = db;
 const { asyncHandler, csrf, csrfProtection, cookieParser } = require('./utils');
 
 
-const { signInUser, requireAuth, ownerAuth } = require('../auth');
+const { signInUser, requireAuth } = require('../auth');
 
 const menuItemsRouter = express.Router();
 menuItemsRouter.use(cookieParser());
