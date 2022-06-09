@@ -6,11 +6,11 @@ const { csrfProtection, asyncHandler, csrf } = require('./utils');
 
 const menuItemsRouter = require('./menuItems')
 
-restaurantsRouter.use('/:id(\\d+)/menu-items', menuItemsRouter);
 
 const { requireAuth } = require('../auth');
 
 const restaurantsRouter = express.Router();
+restaurantsRouter.use('/:id(\\d+)/menu-items', menuItemsRouter);
 
 
 restaurantsRouter.get('/',asyncHandler( async (req, res) => {
@@ -32,7 +32,7 @@ restaurantsRouter.get('/:id(\\d+)', asyncHandler(async (req, res) => {
         ],
 
     });
-  
+
     res.render('restaurant', {
         title: restaurant.name,
         restaurant,
