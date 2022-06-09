@@ -2,4 +2,19 @@ h1 {
     color: #555555;
 }
 
+.master-div {
+    display: flex;
+}
 
+.img {
+    background-image: url(https://live.staticflickr.com/65535/50927494977_21fff584b0_h.jpg);
+    box-sizing: border-box;
+    height: 200px;
+    width: 900px;
+    display: flex;
+}
+
+.link-div {
+    display: flex;
+    flex-direction: column;
+}

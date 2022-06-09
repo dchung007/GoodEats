@@ -5,7 +5,7 @@ const { User, Restaurant, MenuItem } = db;
 const { asyncHandler, csrf, csrfProtection, cookieParser } = require('./utils');
 
 
-const { signInUser } = require('../auth');
+const { signInUser, requireAuth } = require('../auth');
 
 const menuItemsRouter = express.Router();
 menuItemsRouter.use(cookieParser());
@@ -13,6 +13,8 @@ menuItemsRouter.use(express.urlencoded({extended: false}));
 
 const bcrypt = require('bcryptjs');
 const csurf = require('csurf');
+
+
 
 
 const itemValidators = [
@@ -34,12 +36,16 @@ menuItemsRouter.get('/', csrfProtection, asyncHandler(async (req, res) => {
   // console.log(restaurant)
   // Modifciation below
   let loggedInUser
+  let owner 
   console.log(req.session)
   if (req.session.auth) {
     console.log(req.session.auth.userId)
     loggedInUser = req.session.auth.userId
   }
-  res.render('menu-items', { restaurant, loggedInUser, csrfToken: req.csrfToken() })
+  owner = restaurant.ownerId
+  console.log(owner)
+  console.log(loggedInUser)
+  res.render('menu-items', { restaurant, loggedInUser, csrfToken: req.csrfToken(), owner })
 }))
 
 menuItemsRouter.get('/new', csrfProtection, asyncHandler(async (req, res) => {

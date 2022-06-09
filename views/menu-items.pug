@@ -14,15 +14,18 @@ block content
       div.single-item(id=`item-container-${item.id}`)
         h2.itemName(id=`${item.id}-name`)= item.name
         p.itemDescription(id=`${item.id}-description`)= item.description
-        button(class="edit-btn" id=`edit-btn-${item.id}`) Edit
-        button(class='delete-btn' id=`delete-btn-${item.id}`) Delete
-        form(class="hidden" id=`edit-form-${item.id}`)
-          input(type="hidden" name="_csrf" value=csrfToken)
-          label Item Name
-          input(type="text" name="name" value=item.name id=`${item.id}-edit-name`)
-          label Description
-          input(type="text" name="description" value=item.description id=`${item.id}-edit-description`)
-          button(class="edit-submit" id=`edit-submit-${item.id}`) Submit Edit
+        if owner === loggedInUser
+          button(class="edit-btn" id=`edit-btn-${item.id}`) Edit
+          button(class='delete-btn' id=`delete-btn-${item.id}`) Delete
+          form(class="hidden" id=`edit-form-${item.id}`)
+            input(type="hidden" name="_csrf" value=csrfToken)
+            label Item Name
+            input(type="text" name="name" value=item.name id=`${item.id}-edit-name`)
+            label Description
+            input(type="text" name="description" value=item.description id=`${item.id}-edit-description`)
+            button(class="edit-submit" id=`edit-submit-${item.id}`) Submit Edit
+    if owner === loggedInUser
+      a(href=`/restaurants/${restaurant.id}/menu-items/new/` class='create-new') Create New Menu Item
   //- form(action=`/restaurants/${restaurant.id}/menu-items`, method="post")
   //-   input(type="hidden" name="_csrf" value=csrfToken)
   //-   label Item name
@@ -30,5 +33,5 @@ block content
   //-   label Description
   //-   input(type="text" name="description" id=`create-description`)
   //-   button(type='submit' class="create-submit" id='create-submit') Create menu item
-  p: a(href=`/restaurants/${restaurant.id}/menu-items/new/`) Create New Menu Item
+
   p: a(href=`/restaurants/${restaurant.id}`)= restaurant.name

@@ -7,10 +7,10 @@ const { csrfProtection, asyncHandler, csrf } = require('./utils');
 const menuItemsRouter = require('./menuItems')
 
 
-
 const { requireAuth } = require('../auth');
 
 const restaurantsRouter = express.Router();
+restaurantsRouter.use('/:id(\\d+)/menu-items', menuItemsRouter);
 
 //menu router setup
 restaurantsRouter.use('/:id(\\d+)/menu-items', menuItemsRouter);
