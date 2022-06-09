@@ -36,7 +36,7 @@ menuItemsRouter.get('/', csrfProtection, asyncHandler(async (req, res) => {
   // console.log(restaurant)
   // Modifciation below
   let loggedInUser
-  let owner =
+  let owner 
   console.log(req.session)
   if (req.session.auth) {
     console.log(req.session.auth.userId)
