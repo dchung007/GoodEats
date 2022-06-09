@@ -1,0 +1,31 @@
+.navbar-container {
+    display: flex;
+    background-color: #F4F1EA;
+    justify-content: space-between;
+    padding-left: 75px;
+    padding-right: 75px;
+    padding-right: 75px;
+}
+
+.navbar-contents {
+    display: flex;
+    flex-wrap:nowrap;
+    gap:30px;
+    font-family: Arial, Helvetica, sans-serif;
+    margin-top: 25px;
+    text-decoration: none;
+    padding-right:20px;
+}
+
+.logo {
+    font-family: Helvetica neue;
+    display: flex;
+    bottom: 15px;
+    top: 15px;
+    padding-top: 12px;
+}
+
+.logo > a {
+    text-decoration: none;
+    font-size: 20px;
+}
