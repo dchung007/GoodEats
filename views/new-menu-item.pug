@@ -4,9 +4,9 @@ block content
     form(action=`/restaurants/${restaurant.id}/menu-items`, method="post")
         input(type="hidden" name="_csrf" value=csrfToken)
         label Item name
-        input(type="text" name="name" id=`create-name`)
+        input(type="text" name="name" id=`create-name` required)
         label Description
-        input(type="text" name="description" id=`create-description`)
+        input(type="text" name="description" id=`create-description` required)
         button(type='submit' class="create-submit" id='create-submit') Create menu item
 
     p: a(href=`/restaurants/${restaurant.id}`)= restaurant.name

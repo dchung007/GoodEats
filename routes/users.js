@@ -1,7 +1,7 @@
 const express = require('express');
 const { check, validationResult } = require('express-validator');
 const db = require("../db/models");
-const {User, Restaurant} = db;
+const { User, Restaurant } = db;
 const { csrfProtection, asyncHandler, csrf } = require('./utils');
 
 const { signInUser, signOutUser } = require('../auth');
@@ -11,11 +11,11 @@ const router = express.Router();
 const bcrypt = require('bcryptjs');
 const indexRouter = require('./index');
 /* GET users listing. */
-router.get('/', function(req, res, next) {
+router.get('/', function (req, res, next) {
   res.send('Test');
 });
 
-router.get('/register', csrfProtection, asyncHandler ( async (req, res) => {
+router.get('/register', csrfProtection, asyncHandler(async (req, res) => {
   const users = await User.build(); // ***
   res.render('create-account', {
     title: "Create Account",
@@ -25,7 +25,7 @@ router.get('/register', csrfProtection, asyncHandler ( async (req, res) => {
 
 const userValidators = [
   check('username')
-    .exists({ checkFalsy: true})
+    .exists({ checkFalsy: true })
     .withMessage('Please provide a username')
     .isLength({ max: 100 })
     .withMessage('Username cannot exceed 100 characters')
@@ -38,16 +38,16 @@ const userValidators = [
         });
     }),
   check('password')
-    .exists({ checkFalsy: true})
+    .exists({ checkFalsy: true })
     .withMessage('Please provide a password'),
 ]
 
 const signInValidator = [
   check('username')
-    .exists({checkFalsy: true})
+    .exists({ checkFalsy: true })
     .withMessage('Please enter a valid username'),
   check('password')
-    .exists({checkFalsy: true})
+    .exists({ checkFalsy: true })
     .withMessage('Please enter a password')
 ]
 router.post('/register', userValidators, csrfProtection, asyncHandler(async (req, res) => {
@@ -92,7 +92,7 @@ router.get('/sign-in', csrfProtection, (req, res) => {
 
 });
 
-router.post('/sign-in', signInValidator, csrfProtection, asyncHandler( async (req, res) => {
+router.post('/sign-in', signInValidator, csrfProtection, asyncHandler(async (req, res) => {
   const {
     username,
     password
@@ -114,20 +114,28 @@ router.post('/sign-in', signInValidator, csrfProtection, asyncHandler( async (re
       errors.push('Sign-in failed for the provided username and password!');
     }
   } else {
-      errors = validatorErrors.array().map((error) => error.msg);
-    }
-    console.log(errors)
-    res.render('sign-in', {
-      title: 'Sign In',
-      username,
-      errors,
-      csrfToken: req.csrfToken(),
-    });
+    errors = validatorErrors.array().map((error) => error.msg);
+  }
+  console.log(errors)
+  res.render('sign-in', {
+    title: 'Sign In',
+    username,
+    errors,
+    csrfToken: req.csrfToken(),
+  });
 }));
 
 router.post('/sign-out', (req, res) => {
   signOutUser(req, res);
   res.redirect('/');
 });
+
+
+router.post('/demo-user', asyncHandler(async (req, res) => {
+  const demoUser = await User.findByPk(2);
+  signInUser(req, res, demoUser);
+  return res.redirect('/');
+}))
+
 
 module.exports = router;
