@@ -157,7 +157,7 @@ restaurantsRouter.get('/:restaurantid(\\d+)/reviews/edit/:id(\\d+)', csrfProtect
 
         //get review and check auth before rendering
         const review = await db.Review.findByPk(reviewId);
-
+        const currentreview = review.review;
         //check permission?
         checkPermissions(review, res.locals.user);
 
@@ -169,6 +169,7 @@ restaurantsRouter.get('/:restaurantid(\\d+)/reviews/edit/:id(\\d+)', csrfProtect
             title: "Edit Review",
             reviewId,
             restaurantId,
+            currentreview,
             csrfToken: req.csrfToken()
         });
     }));
@@ -183,7 +184,6 @@ restaurantsRouter.post('/:restaurantid(\\d+)/reviews/edit/:id(\\d+)', csrfProtec
         const review = await db.Review.findByPk(reviewId);
         //check permission?
         checkPermissions(review, res.locals.user);
-
 
 
 

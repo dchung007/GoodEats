@@ -9,7 +9,7 @@ block content
   form(action=`/restaurants/${restaurantId}/reviews/edit/${reviewId}` method='post')
     p
       input(type="hidden" name='_csrf' value=csrfToken)
-      input(type='textarea', name='review', value=review required)
+      input(type='textarea', name='review', value=currentreview required)
     div(class='py-4')
       button(type='submit' class='btn btn-warning ml-2') Edit Review
       a(href='/' class='btn btn-warning ml-2') Cancel
