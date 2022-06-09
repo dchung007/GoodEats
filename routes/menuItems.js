@@ -5,7 +5,7 @@ const { User, Restaurant, MenuItem } = db;
 const { asyncHandler, csrf, csrfProtection, cookieParser } = require('./utils');
 
 
-const { signInUser, requireAuth } = require('../auth');
+const { signInUser, requireAuth, ownerAuth } = require('../auth');
 
 const menuItemsRouter = express.Router();
 menuItemsRouter.use(cookieParser());
@@ -36,10 +36,9 @@ menuItemsRouter.get('/', csrfProtection, asyncHandler(async (req, res) => {
   // console.log(restaurant)
   // Modifciation below
   let loggedInUser
-  let owner 
+  let owner
   console.log(req.session)
   if (req.session.auth) {
-    console.log(req.session.auth.userId)
     loggedInUser = req.session.auth.userId
   }
   owner = restaurant.ownerId
@@ -48,7 +47,17 @@ menuItemsRouter.get('/', csrfProtection, asyncHandler(async (req, res) => {
   res.render('menu-items', { restaurant, loggedInUser, csrfToken: req.csrfToken(), owner })
 }))
 
+// --------------
+const checkPermissions = (owner, currentUser) => {
+  if (owner !== currentUser) {
+    const err = new Error('Illegal operation.');
+    err.status = 403; // Forbidden
+    throw err;
+  }
+};
+
 menuItemsRouter.get('/new', csrfProtection, asyncHandler(async (req, res) => {
+
   const path = req.baseUrl.split('/')
   // console.log(path[2])
   const restaurantId = path[2];
@@ -58,11 +67,13 @@ menuItemsRouter.get('/new', csrfProtection, asyncHandler(async (req, res) => {
   // console.log(restaurant)
   // Modifciation below
   let loggedInUser
+  let owner = restaurant.ownerId
   console.log(req.session)
   if (req.session.auth) {
     console.log(req.session.auth.userId)
     loggedInUser = req.session.auth.userId
   }
+  checkPermissions(loggedInUser, owner)
   res.render('new-menu-item', { restaurant, loggedInUser, csrfToken: req.csrfToken() })
 }))
 
