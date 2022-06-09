@@ -20,9 +20,9 @@ block content
           form(class="hidden" id=`edit-form-${item.id}`)
             input(type="hidden" name="_csrf" value=csrfToken)
             label Item Name
-            input(type="text" name="name" value=item.name id=`${item.id}-edit-name`)
+            input(type="text" name="name" value=item.name id=`${item.id}-edit-name` required)
             label Description
-            input(type="text" name="description" value=item.description id=`${item.id}-edit-description`)
+            input(type="text" name="description" value=item.description id=`${item.id}-edit-description` required)
             button(class="edit-submit" id=`edit-submit-${item.id}`) Submit Edit
     if owner === loggedInUser
       a(href=`/restaurants/${restaurant.id}/menu-items/new/` class='create-new') Create New Menu Item
