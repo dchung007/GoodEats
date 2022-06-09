@@ -133,6 +133,7 @@ router.post('/sign-out', (req, res) => {
 
 router.post('/demo-user', asyncHandler(async (req, res) => {
   const demoUser = await User.findByPk(2);
+  // console.log('Demo route reached-----------------------------')
   signInUser(req, res, demoUser);
   return res.redirect('/');
 }))

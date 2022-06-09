@@ -7,16 +7,16 @@ extends layout
 //-   script(src="/javascripts/index.js" type="module" defer)
 
 block content
-  h1= title
-  p Welcome to your Project Skeleton
   div(class="master-div")
     div(class="img")
-    div(class="link-div")
-      unless loggedInUser
-        a(href="users/sign-in")
-          button(type='button') Sign In
-        a(href="users/register")
-          button(type='button') Register
-        form(action="/users/demo-user" method="post")
-          button(type="submit") Demo User
-    a(href="/restaurants") View Restaurants
+    div(id="text-div")
+      div
+        h1 Deciding where to eat next?
+        p You’re in the right place. Tell us what kinds of restaurants you’ve enjoyed in the past, and we’ll give you surprisingly insightful recommendations.
+      div
+        h1 Where are your friends eating?
+        p Chances are your friends are discussing their favorite (and least favorite) restaurants on goodeats.
+    div
+      each resturant in restaurants
+        p= resturant.name
+        p= resturant.description

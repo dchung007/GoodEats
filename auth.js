@@ -1,18 +1,18 @@
 const db = require('./db/models');
 
-const signInUser = (req, res, user) => {
+const signInUser = async (req, res, user) => {
   req.session.auth = {
     userId: user.id,
   };
 };
 
-const signOutUser = (req, res) => {
+const signOutUser = async (req, res) => {
   delete req.session.auth;
   res.clearCookie('good-eats.sid');
   res.clearCookie('_csrf');
 };
 
-const requireAuth = (req, res, next) => {
+const requireAuth = async (req, res, next) => {
   if (!res.locals.authenticated) {
     return res.redirect('/users/register');
   }
