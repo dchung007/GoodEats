@@ -9,3 +9,10 @@ extends layout
 block content
   h1= title
   p Welcome to your Project Skeleton
+  div(class="master-div")
+    div(class="img")
+    div(class="link-div")
+      unless loggedInUser
+        a(href="users/sign-in") Sign In
+        a(href="users/register") Register
+    a(href="/restaurants") View Restaurants

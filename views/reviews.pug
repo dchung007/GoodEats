@@ -6,7 +6,8 @@ block content
   div
     each review in restaurant.Reviews
       p.reviewName= review.review
-        a(class='delete-button' id=`delete-post-${review.id}` href=`/restaurants/${review.restaurantId}/reviews/delete/${review.id}`)   Delete
-
+        if (review.userId === currentUser)
+          a(class='delete-button' id=`delete-post-${review.id}` href=`/restaurants/${review.restaurantId}/reviews/delete/${review.id}`)   Delete
+          a(class='edit-button' id=`edit-post-${review.id}` href=`/restaurants/${review.restaurantId}/reviews/edit/${review.id}`)   Edit
   p: a(href=`/restaurants/${restaurant.id}}`)= restaurant.name
   p: a(href=`/restaurants/${restaurant.id}/reviews/new`) Write a review
