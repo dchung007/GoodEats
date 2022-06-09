@@ -14,15 +14,17 @@ html
         div(class='navbar-contents')
           ul(class='account-links')
           unless locals.authenticated
-              a(href='/users/sign-in') Sign in
-              a(href='/users/register') Register
+              a(href='/users/sign-in' class="menu-bar") Sign in
+              a(href='/users/register' class="menu-bar") Register
+              form(action="/users/demo-user" method="post" id="demo-user-form")
+                button(type="submit" class="demo-user-btn") Demo User
           if locals.authenticated
             span(class='navbar-text px-4') Welcome #{user.username}!
             form(class='form-inline pr-4' action='/users/sign-out' method='post')
-              button(class='btn btn-sm btn-warning' type='submit') Sign Out
+              button(class="demo-user-btn" type='submit') Sign Out
           div(id='home-nav')
-            a(href='/') Home
+            a(class = "menu-bar" href='/') Home
           div(id='restaurants-nav')
-            a(href='/restaurants') Restaurants
+            a(class = "menu-bar" href='/restaurants') Restaurants
     .container
       block content
