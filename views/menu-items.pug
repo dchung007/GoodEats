@@ -19,13 +19,18 @@ block content
           div(class="owner-buttons-div")
             button(class="edit-btn" id=`edit-btn-${item.id}`) Edit
             button(class='delete-btn' id=`delete-btn-${item.id}`) Delete
-            form(class="hidden" id=`edit-form-${item.id}`)
-              input(type="hidden" name="_csrf" value=csrfToken)
-              label Item Name
-              input(type="text" name="name" value=item.name id=`${item.id}-edit-name` required)
-              label Description
-              input(type="text" name="description" value=item.description id=`${item.id}-edit-description` required)
-              button(class="edit-submit" id=`edit-submit-${item.id}`) Submit Edit
+            div(class='hidden hidden-div')
+            div(class='edit-field-div')
+              form(class="hidden" id=`edit-form-${item.id}`)
+                input(type="hidden" name="_csrf" value=csrfToken)
+                div(class='edit-item-field-div')
+                  label Item Name
+                  input(type="text" class='edit-item-field' name="name" value=item.name id=`${item.id}-edit-name` required)
+                div(class='edit-item-description-div')
+                  label Description
+                  input(type="text" class='edit-item-description' name="description" value=item.description id=`${item.id}-edit-description` required)
+                div
+                  button(class="edit-submit" id=`edit-submit-${item.id}`) Submit Edit
     if owner === loggedInUser
     button(type='submit' class='create-new-button'):  a(href=`/restaurants/${restaurant.id}/menu-items/new/` class='create-new') New Menu Item
   //- form(action=`/restaurants/${restaurant.id}/menu-items`, method="post")

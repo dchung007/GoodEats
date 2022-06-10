@@ -12,6 +12,11 @@ for (let i = 0; i < editBtns.length; i++) {
     } else {
       form.classList.add('hidden')
     }
+    if (form.classList.contains('hidden')) {
+      form.classList.remove('hidden-form')
+    } else {
+      form.classList.add('hidden-form')
+    }
 
     const submitBtn = document.getElementById(`edit-submit-${itemId}`)
     submitBtn.addEventListener('click', async (submitEvent) => {
