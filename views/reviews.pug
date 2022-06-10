@@ -4,9 +4,9 @@ block content
   div(class="review-container")
     h1(id='restaurant-title')= restaurant.name
     if loggedInUser
-      a(id="prompt")= `Start your review of ${restaurant.name}...`
+      a(class="prompt")= `Start your review of ${restaurant.name}...`
       a(href=`/restaurants/${restaurant.id}/reviews/new`)
-        p: button(id='write-review' type = 'submit') Write a review
+        p: button(class='submit-button' type = 'submit') Write a review
     h2 COMMUNITY REVIEWS
     div(class='review-display')
     - let number=0;

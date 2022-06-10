@@ -1,14 +1,18 @@
 extends layout.pug
 
 block content
-  h2 Leave us a review!
-  if errors
-      div(class='create-review-error')
-        ul
-          each error in errors
-            li= error
-  form(method="post" action=`/restaurants/${restaurant.id}/reviews/new`)
-      input(type="hidden" name="_csrf" value=csrfToken)
-      label(for="review") Your review:
-      textarea(id="review" name="review" value=review required)
-      button(type="submit") Submit
+  div(class="review-container")
+    h2(id='restaurant-title') Leave us a review!
+    if errors
+        div(class='create-review-error')
+          ul
+            each error in errors
+              li= error
+    form(method="post" action=`/restaurants/${restaurant.id}/reviews/new`)
+        input(type="hidden" name="_csrf" value=csrfToken)
+        label(for="review" class="prompt") Tell us what you think about our restaurant...
+        div
+          textarea(class='longtextbox' name="review" value=review required)
+        div
+          button(type="submit" class="submit-button" required ) Submit
+          a(class="cancelfakebutton" href=`/restaurants/${restaurant.id}/reviews`) Cancel
