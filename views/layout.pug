@@ -6,11 +6,13 @@ html
     link(rel='stylesheet' href='/stylesheets/reset.css')
     link(rel='stylesheet' href='/stylesheets/index.css')
     link(rel='stylesheet' href='/stylesheets/layout.css')
+    link(rel='stylesheet' href='/stylesheets/reviews.css')
     title GoodEats - #{title}
   body
     div(class='navbar-container')
         div(class='logo')
-          a(class='navbar-brand' href='/') GoodEats
+          a(href="/")
+            img(href="/" src="https://i.imgur.com/1QkBXU5.png", alt="Logo", style="height:50px", id="logo")
         div(class='navbar-contents')
           ul(class='account-links')
           unless locals.authenticated
@@ -28,3 +30,23 @@ html
             a(class = "menu-bar" href='/restaurants') Restaurants
     .container
       block content
+
+  footer(class="footer-container")
+    div(class="footercontent")
+      p Powered By goodEats Team
+      div(class="githublinks")
+        p(id="repolink") Source Code Repo
+          a(href="https://github.com/dchung007/GoodEats")
+            img(src="https://i.imgur.com/sozkxlW.png" class="githubicon")
+        p David Chung
+          a(href="https://github.com/dchung007")
+            img(src="https://i.imgur.com/sozkxlW.png" class="githubicon")
+        p Mineh Gharabegi
+          a(href="https://github.com/Mineh222")
+            img(src="https://i.imgur.com/sozkxlW.png" class="githubicon")
+        p Jonatan Aguilar
+          a(href="https://github.com/nullgar")
+            img(src="https://i.imgur.com/sozkxlW.png" class="githubicon")
+        p Tianyi Shao
+          a(href="https://github.com/tshao42")
+            img(src="https://i.imgur.com/sozkxlW.png" class="githubicon")

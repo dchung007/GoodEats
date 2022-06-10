@@ -57,3 +57,7 @@ img {
     width: 300px;
     border-radius: 30px;
 }
+#logo{
+    padding-top:0;
+    padding-bottom:0;
+}
