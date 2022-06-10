@@ -1,9 +1,11 @@
 extends layout.pug
 
 block content
-  h1= restaurant.name
+  link(rel='stylesheet' href='/stylesheets/restaurant.css')
 
-  div
+  h1(class='restaurant-header')= restaurant.name
+
+  div(class="restaurant-div")
     each item in restaurant.MenuItems
       h2.itemName= item.name
       img(src=`${item.image}`, alt="image" style="width:250px")
