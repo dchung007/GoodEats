@@ -1,0 +1,136 @@
+.review-container{
+    padding-left:50px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+.prompt{
+    font-family:Arial, Helvetica, sans-serif;
+    font-weight: bold;
+}
+
+#restaurant-title{
+    padding-top: 30px;
+    padding-bottom: 15px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: 24px;
+}
+
+.review-container > h2{
+    color: #382110;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bolder;
+}
+
+.review-display.p{
+    font-size:30px;
+}
+
+.review-change-link{
+    color: #00635d;
+    text-decoration: none;
+    padding: 10px;
+}
+
+.review-change-link:hover{
+    text-decoration: underline;
+}
+
+#delete-post{
+    padding-left: 50px;
+}
+.submit-button{
+    margin-top:20px;
+    padding: 8px 12px;
+    font-size: 14px;
+    background-color: #f4f1ea;
+    color:#333333;
+    border: 1px solid #d6d0c4;
+    border-radius: 4px;
+}
+
+.submit-button:hover,
+.cancelfakebutton:hover{
+    background-color: #c4b8a0;
+}
+
+#redirect-restaurant{
+    text-decoration:none;
+    color: #00635d;
+    padding-top: 20px;
+}
+
+#change-link-divider:hover{
+    text-decoration: none;
+}
+
+
+.longtextbox{
+    margin-top:20px;
+    width: 500px;
+    height: 250px;
+    position: relative;
+    border: 2px solid #ccc;
+    font-size:16px;
+    text-align: justify;
+    inline-size: 490px;
+    overflow-wrap: break-word;
+    hyphens: manual;
+}
+
+#cancel,
+#cancel2{
+    margin: 50px;
+}
+
+
+.cancelfakebutton{
+    margin-left:350px;
+    margin-top:20px;
+    padding: 8px 12px;
+    font-size: 14px;
+    background-color: #f4f1ea;
+    color:#333333;
+    border: 1px solid #d6d0c4;
+    border-radius: 4px;
+    text-decoration: none;
+    font-family:Arial, Helvetica, sans-serif;
+    cursor:default;
+}
+
+.footer-container{
+    width:100%;
+    margin-top:70px;
+    height:25%;
+    position:relative;
+    bottom:0;
+    left:0;
+    background-color: #d6d0c4;
+    display:flex;
+    justify-content: center;
+}
+
+.footercontent{
+    color: #382110;
+    font-size: 20px;
+
+    font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif
+}
+
+.githublinks{
+    color:#382110;
+    white-space:pre;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+
+}
+
+.githubicon{
+    margin-left:3px;
+    height:14px;
+}
+
+#repolink{
+    text-decoration: none;
+    font-weight:bold;
+}

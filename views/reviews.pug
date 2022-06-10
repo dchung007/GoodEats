@@ -1,14 +1,21 @@
 extends layout.pug
 
 block content
-  h1= restaurant.name
-  h2 Reviews
-  div
-    each review in restaurant.Reviews
-      p.reviewName= review.review
-        if (review.userId === loggedInUser)
-          a(class='delete-button' id=`delete-post-${review.id}` href=`/restaurants/${review.restaurantId}/reviews/delete/${review.id}`)   Delete
-          a(class='edit-button' id=`edit-post-${review.id}` href=`/restaurants/${review.restaurantId}/reviews/edit/${review.id}`)   Edit
-  p: a(href=`/restaurants/${restaurant.id}`)= restaurant.name
-  if loggedInUser
-    p: a(href=`/restaurants/${restaurant.id}/reviews/new`) Write a review
+  div(class="review-container")
+    h1(id='restaurant-title')= restaurant.name
+    if loggedInUser
+      a(class="prompt")= `Start your review of ${restaurant.name}...`
+      a(href=`/restaurants/${restaurant.id}/reviews/new`)
+        p: button(class='submit-button' type = 'submit') Write a review
+    h2 COMMUNITY REVIEWS
+    div(class='review-display')
+    - let number=0;
+      each review in restaurant.Reviews
+        - number++
+        p.reviewnumber=`#${number}`
+        p.reviewName= review.review
+          if (review.userId === loggedInUser)
+            a(class='review-change-link' id=`delete-post` href=`/restaurants/${review.restaurantId}/reviews/delete/${review.id}`) Delete
+            a(class='review-change-link' id='change-link-divider') /
+            a(class='review-change-link' id=`edit-post` href=`/restaurants/${review.restaurantId}/reviews/edit/${review.id}`) Edit
+    p: a(id='redirect-restaurant' href=`/restaurants/${restaurant.id}`)= `<< back to... ${restaurant.name}`

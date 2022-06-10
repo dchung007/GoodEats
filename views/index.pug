@@ -8,17 +8,17 @@ extends layout
 
 block content
   div(class="master-div")
-    div(class="img")
+    div(class="img-banner")
     div(id="text-div")
       div
         h1 Deciding where to eat next?
-        p You’re in the right place. Tell us what kinds of restaurants you’ve enjoyed in the past, and we’ll give you surprisingly insightful recommendations.
+        p(class="index-text") You’re in the right place. Tell us what kinds of restaurants you’ve enjoyed in the past, and we’ll give you surprisingly insightful recommendations.
       div
         h1 Where are your friends eating?
-        p Chances are your friends are discussing their favorite (and least favorite) restaurants on goodeats.
-    div.container
+        p(class="index-text") Chances are your friends are discussing their favorite (and least favorite) restaurants on goodeats.
+    div.container-index
       each restaurant in restaurants
-        div.content
-          p= restaurant.name
-          img(src=`${restaurant.image}`, alt="image" style="width:250px")
-          p= restaurant.description
+        div.content-index
+          a(href=`/restaurants/${restaurant.id}`)= restaurant.name
+          img(src=`${restaurant.image}`, alt="image")
+          p(class="index-text")= restaurant.description
