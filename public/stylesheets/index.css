@@ -22,3 +22,13 @@ div#text-div {
     flex-wrap: nowrap;
     justify-content: space-between;
 }
+
+.container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+p {
+    width: 25%;
+}
