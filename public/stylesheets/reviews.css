@@ -1,0 +1,61 @@
+.review-container{
+    padding-left:50px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+#prompt{
+    font-family:Lato;
+}
+
+#restaurant-title{
+    padding-top: 30px;
+    padding-bottom: 15px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-size: 24px;
+}
+
+.review-container > h2{
+    color: #382110;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bolder;
+}
+
+.review-display.p{
+    font-size:30px;
+}
+
+.review-change-link{
+    color: #00635d;
+    text-decoration: none;
+    padding: 10px;
+}
+
+.review-change-link:hover{
+    text-decoration: underline;
+}
+
+#delete-post{
+    padding-left: 50px;
+}
+#write-review{
+    padding: 8px 12px;
+    font-size: 14px;
+    background-color: #f4f1ea;
+    color:#333333;
+    border: 1px solid #d6d0c4;
+    border-radius: 4px;
+}
+
+#write-review:hover{
+    background-color: #c4b8a0;
+}
+
+#redirect-restaurant{
+    text-decoration:none;
+    color: #00635d;
+    padding-top: 20px;
+}
+
+#change-link-divider:hover{
+    text-decoration: none;
+}

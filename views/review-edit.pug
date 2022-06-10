@@ -1,15 +1,16 @@
 extends layout.pug
 
 block content
-  if errors
-      div(class='review-edit-error')
-        ul
-          each error in errors
-            li= error
-  form(action=`/restaurants/${restaurantId}/reviews/edit/${reviewId}` method='post')
-    p
-      input(type="hidden" name='_csrf' value=csrfToken)
-      input(type='textarea', name='review', value=currentreview required)
-    div(class='py-4')
-      button(type='submit' class='btn btn-warning ml-2') Edit Review
-      a(href='/' class='btn btn-warning ml-2') Cancel
+    div(class="review-container")
+    if errors
+        div(class='review-edit-error')
+          ul
+            each error in errors
+              li= error
+    form(action=`/restaurants/${restaurantId}/reviews/edit/${reviewId}` method='post')
+      p
+        input(type="hidden" name='_csrf' value=csrfToken)
+        input(id = "reviewbox" type='textarea', name='review', value=currentreview required)
+      div(class='py-4')
+        button(type='submit' class='btn btn-warning ml-2') Edit Review
+        a(href='/' class='btn btn-warning ml-2') Cancel
