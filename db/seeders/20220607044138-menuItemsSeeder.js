@@ -25,6 +25,12 @@ module.exports = {
       { name: 'Cheese', description: 'Cheese handpicked by our finest rats', restaurantId: 3, image: 'https://i.pinimg.com/originals/63/35/9f/63359fb102530b953725756561bc43e0.jpg', createdAt: new Date(), updatedAt: new Date() },
       { name: 'Tea', description: 'Hot hot hot! But so good good good!', restaurantId: 4, image: 'http://www.moriareviews.com/rongulator/wp-content/uploads/Alice-in-Wonderland-1951.jpg', createdAt: new Date(), updatedAt: new Date() },
       { name: 'Cookies', description: 'Cookies are delicious!', restaurantId: 4, image: 'https://rivermoosebooks.files.wordpress.com/2017/06/fde71e666c60fe11418b4f081b779f29.jpg', createdAt: new Date(), updatedAt: new Date() },
+      { name: 'Meatball Pasta', description: 'Pasta with meatballs and the best sauce you have ever had', restaurantId: 5, image: 'http://www.disneyfoodblog.com/wp-content/uploads/2011/06/ladyandthetramp.jpg', createdAt: new Date(), updatedAt: new Date() },
+      { name: 'Cannoli', description: 'Fried pastry dough, filled with a sweet, creamy filling', restaurantId: 5, image: 'https://media.istockphoto.com/vectors/cannoli-traditional-sweet-italian-pastry-with-creamy-filling-vector-vector-id1161402718?k=20&m=1161402718&s=612x612&w=0&h=b4vQUHeO6ymLjDoE3RrQaAOSal5f6QMge4cCPpP4byk=', createdAt: new Date(), updatedAt: new Date() },
+      { name: 'Eyeballs', description: 'Fresh, juicy eyeballs', restaurantId: 6, image: 'https://cdn.discordapp.com/attachments/984658623932301363/984679579123871744/unknown.png', createdAt: new Date(), updatedAt: new Date() },
+      { name: 'Sushi', description: 'Sushi made by the best sushi chef', restaurantId: 6, image: 'https://images-ext-1.discordapp.net/external/jtFr0sNG9l6BUFkwUgaZicO7AiowSiTayqsa6rneSXM/%3Fcb%3D20110118040437/https/static.wikia.nocookie.net/pixar/images/7/7b/Monstersmarlin.jpg/revision/latest?width=705&height=391', createdAt: new Date(), updatedAt: new Date() },
+      { name: 'Margherita Pizza', description: 'Tomatoes, mozzarella cheese, garlic, fresh basil, and extra-virgin olive oil', restaurantId: 7, image: 'https://media.istockphoto.com/vectors/pizza-margherita-vector-id1222437102?k=20&m=1222437102&s=612x612&w=0&h=vnSuPaxQDd0yiMKjvDmtEVCsdR4XKuhgXSk6zE9U0lE=', createdAt: new Date(), updatedAt: new Date() },
+      { name: 'Pepperoni Pizza', description: 'The classic pizza', restaurantId: 7, image: 'https://img.favpng.com/24/6/17/pizza-salami-pepperoni-cartoon-clip-art-png-favpng-ULsvHbe7Sn8dm4uRwDyecVBTp.jpg', createdAt: new Date(), updatedAt: new Date() },
     ], {});
   },
 
