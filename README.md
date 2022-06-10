@@ -1,7 +1,7 @@
 # Goodeats
 
 ## Introduction
-Welcome to goodeats, a clone of the popular [Goodreads](https://www.goodreads.com/) website. Goodreads is a popular website where you can search for the most popular books on the market. With goodreads, you can search for and write reviews for books. Similarly, with GoodEats, you can find the hottest restaurants and get the scoop on where to eat next! You can write reviews, edit, and delete them. You can also create menu items for your restaurant if you are a restaurant owner, as well as edit and delete them.
+Welcome to goodeats, a clone of the popular [Goodreads](https://www.goodreads.com/) website. Goodreads is a popular website where you can search for the most popular books on the market. On goodreads, you can search for and write reviews for books. Similarly, with goodeats, everyone can come on our site and find the hottest restaurants and get the scoop on where to eat next! If you are registered and logged into goodeats, you can write reviews, and if you change your mind you can also edit or delete your reviews. If you have a restaurant set up on goodeats and are logged in as its authorized user, you can also create menu items for your restaurant as well as edit and delete them.
 
 ## How To Start Development Enivornment
 git clone https://github.com/dchung007/GoodEats.git
@@ -22,8 +22,8 @@ https://github.com/dchung007/GoodEats/wiki
 
 ## Features
 
-### Sign-up/Login
-Users can sign up with a username and password. They can also sign in with their created username and password.
+### Register/sign-in
+Users can register with a unique username and password of their choice. They can also sign in with their created username and password.
 
 ### View restaurants
 All users can view any and all restaurants.
