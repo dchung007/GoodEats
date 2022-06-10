@@ -32,7 +32,7 @@ block content
               div(class='submit-edit')
                 button(class="edit-submit" id=`edit-submit-${item.id}`) Submit Edit
     if owner === loggedInUser
-    button(type='submit' class='create-new-button'):  a(href=`/restaurants/${restaurant.id}/menu-items/new/` class='create-new') New Menu Item
+      button(type='submit' class='create-new-button'):  a(href=`/restaurants/${restaurant.id}/menu-items/new/` class='create-new') New Menu Item
   //- form(action=`/restaurants/${restaurant.id}/menu-items`, method="post")
   //-   input(type="hidden" name="_csrf" value=csrfToken)
   //-   label Item name
