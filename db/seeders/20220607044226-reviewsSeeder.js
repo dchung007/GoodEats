@@ -21,6 +21,12 @@ module.exports = {
       { restaurantId: 2, userId: 6, review: "Ugh.", createdAt: new Date(), updatedAt: new Date() },
       { restaurantId: 2, userId: 7, review: "This place is somehow worse than the dump Squidward works in!", createdAt: new Date(), updatedAt: new Date() },
       { restaurantId: 2, userId: 8, review: "Meowwwww", createdAt: new Date(), updatedAt: new Date() },
+      { restaurantId: 3, userId: 1, review: "So good!", createdAt: new Date(), updatedAt: new Date() },
+      { restaurantId: 3, userId: 2, review: "Will be back again", createdAt: new Date(), updatedAt: new Date() },
+      { restaurantId: 3, userId: 6, review: "Love this place", createdAt: new Date(), updatedAt: new Date() },
+      { restaurantId: 3, userId: 9, review: "Remy is the best chef in all of Paris!", createdAt: new Date(), updatedAt: new Date() },
+      { restaurantId: 4, userId: 6, review: "Delightful!", createdAt: new Date(), updatedAt: new Date() },
+      { restaurantId: 4, userId: 3, review: "Love my tea time", createdAt: new Date(), updatedAt: new Date() },
     ], {});
   },
 

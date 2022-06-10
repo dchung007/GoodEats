@@ -21,6 +21,9 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       references: { model: 'RestaurantShelfs' }
     },
+    image: {
+      type: DataTypes.STRING
+    },
   }, {});
   Restaurant.associate = function (models) {
     // associations can be defined here
