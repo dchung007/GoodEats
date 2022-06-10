@@ -45,7 +45,15 @@ const userValidators = [
 const signInValidator = [
   check('username')
     .exists({ checkFalsy: true })
-    .withMessage('Please enter a valid username'),
+    .withMessage('Please enter a valid username')
+    .custom((value) => {
+      return User.findOne({ where: { username: value } }) // ***
+        .then((user) => {
+          if (!user) {
+            return Promise.reject('The provided username does not exist.')
+          }
+        });
+    }),
   check('password')
     .exists({ checkFalsy: true })
     .withMessage('Please enter a password')

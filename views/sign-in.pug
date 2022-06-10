@@ -1,19 +1,23 @@
 extends layout.pug
 
 block content
-    h1 GoodEats
-    h2 Sign In
+  link(rel='stylesheet' href='/stylesheets/sign-in.css')
+  div.form_container_sign_in
+    h2.header_sign_in Sign In
     if errors
       div(class='sign-in-error')
         ul
           each error in errors
             li= error
     form(action="sign-in" method='post')
-        input(type="hidden" name='_csrf' value=csrfToken)
-        label(for='username') Username
-        input(type='text' name='username' value=username required)
-        label(for='password') Password
-        input(type='password' name='password' value=password required)
-        button Sign In
-    div
-        p: a(href="/users/register") New to GoodEats? Create Account
+      input(type="hidden" name='_csrf' value=csrfToken)
+      div.username_sign_in
+        label(for='username' id='username_labal_sign_in') Username
+        input(type='text' name='username' id='username_input_sign_in' value=username required)
+      div.password_sign_in
+        label(for='password' id='password_label_sign_in') Password
+        input(type='password' name='password' id='password_input_sign_in' value=password required)
+      div.last_section_sign_in
+        button(type='submit' id='button_sign_in') Sign In
+    div.message_sign_in New to GoodEats?  
+        a(href="/users/register") Create Account

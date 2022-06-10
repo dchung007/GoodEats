@@ -1,18 +1,24 @@
 extends layout.pug
 
 block content
-    h2 Create Account
+  link(rel='stylesheet' href='/stylesheets/create-account.css')
+  div.form_container
+    h2.header Create Account
     if errors
       div(class='create-account-error')
         ul
           each error in errors
             li= error
     form(action="register" method='post')
-        input(type="hidden" name='_csrf' value=csrfToken)
-        label(for='username') Username
-        input(type='text' name='username' value=username required)
-        label(for='password') Password
-        input(type='password' name='password' value=password required)
-        button(type='submit') Create Account
-    div
-        p: a(href='/users/sign-in') Already have an account?
+      input(type="hidden" name='_csrf' value=csrfToken)
+      div.username_create_account
+        label(for='username' id='username_label') Username
+        input(type='text' name='username' id='username_input' value=username required)
+      div.password_create_account
+        label(for='password' id='password_label') Password
+        input(type='password' name='password' id='password_input' value=password required)
+      div.last_section
+        button(type='submit' id='button_create_acc') Create Account
+        div.more_text Own a restaurant? Contact us to get your restaurant set up on GoodEats!
+    div.message_create_account Already have an account?  
+        a(href='/users/sign-in') Sign in
