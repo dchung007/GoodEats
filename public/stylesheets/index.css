@@ -35,9 +35,8 @@ div#text-div {
     flex-wrap: wrap;
 }
 
-p {
+.index-text {
     width: 60%;
-    text-align: center;
 }
 
 div.content-index {
