@@ -51,3 +51,9 @@
     border: none;
     cursor: pointer;
 }
+
+img {
+    height: 200px;
+    width: 300px;
+    border-radius: 30px;
+}

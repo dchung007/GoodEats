@@ -5,12 +5,13 @@
     font-family: Helvetica, Arial, sans-serif;
 }
 
-.img {
+.img-banner {
     background-image: url(https://live.staticflickr.com/65535/50927494977_21fff584b0_h.jpg);
     box-sizing: border-box;
     height: 200px;
     width: 100%;
     display: flex;
+    background-repeat: no-repeat;
     justify-content: center;
 }
 
@@ -49,13 +50,9 @@ div.content-index {
     align-items: center;
 }
 
-img {
-    height: 200px;
-    width:300px;
-    border-radius: 30px;
-}
 
 a {
     text-decoration: none;
-    font-size:larger
+    font-size: larger;
+    padding-bottom: 15px;
 }
