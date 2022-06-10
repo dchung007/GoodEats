@@ -7,9 +7,11 @@ h2, p, button, label {
 }
 
 .single-item {
-    margin: 4%;
+    margin: 5%;
+    padding: 2%;
     border: 2px solid #F4F1EA;
-    background-color: #F4F1EA;;
+    background-color: #F4F1EA;
+
 }
 
 .itemName {
@@ -24,6 +26,10 @@ h2, p, button, label {
 .itemDescription {
     font-family: Arial, Helvetica, sans-serif;
     padding: 0 2%;
+}
+
+.image {
+    margin: 2% 0 2% 4%;
 }
 
 .owner-buttons-div {
@@ -53,29 +59,26 @@ h2, p, button, label {
 
 }
 .hidden-form {
-    display: flex;
-}
-.hidden-div {
-    display: flex;
-    flex-direction: row;
-
+    padding: 5%;
 }
 
 .edit-item-field-div {
     display: inline;
-    padding-left: 10%;
+
 }
 .edit-item-field {
     font-family: Arial, Helvetica, sans-serif;
-    margin-left: 1%;
 }
 .edit-item-description-div {
-    padding-left: 1%;
+    padding-top: 1%;
 }
 .edit-item-description {
     font-family: Arial, Helvetica, sans-serif;
     padding-left: 1%;
     display: inline;
+}
+.submit-edit{
+    margin: 5%;
 }
 .edit-submit {
     font-family: Arial, Helvetica, sans-serif;
@@ -92,6 +95,7 @@ h2, p, button, label {
     margin: 0 0 2% 5%;
     background-color: whitesmoke;
     font-family: Arial, Helvetica, sans-serif;
+    border-radius: 5px;
 }
 
 .restaurant-link {

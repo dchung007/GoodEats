@@ -142,7 +142,6 @@ menuItemsRouter.post('/', itemValidators, csrfProtection, asyncHandler(async (re
 
 
 menuItemsRouter.put('/:id(\\d+)', async (req, res) => {
-  console.log(req.body)
   const item = await MenuItem.findByPk(req.params.id)
   item.name = req.body.name
   item.description = req.body.description

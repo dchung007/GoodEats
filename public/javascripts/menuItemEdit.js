@@ -5,18 +5,16 @@ for (let i = 0; i < editBtns.length; i++) {
   btn.addEventListener('click', (e) => {
     // let itemId = e.target.id.split('-')[2]
     const itemId = btn.id.split('-')[2]
-    // console.log(itemId)
+
     const form = document.getElementById(`edit-form-${itemId}`)
     if (form.classList.contains('hidden')) {
       form.classList.remove('hidden')
     } else {
       form.classList.add('hidden')
     }
-    if (form.classList.contains('hidden')) {
-      form.classList.remove('hidden-form')
-    } else {
-      form.classList.add('hidden-form')
-    }
+
+
+
 
     const submitBtn = document.getElementById(`edit-submit-${itemId}`)
     submitBtn.addEventListener('click', async (submitEvent) => {

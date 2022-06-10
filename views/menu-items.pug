@@ -14,24 +14,23 @@ block content
     each item in restaurant.MenuItems
       div.single-item(id=`item-container-${item.id}`)
         h2.itemName(id=`${item.id}-name`)= item.name
-        img(src=`${item.image}`, alt="image" style="width:250px")
+        img(class='image' src=`${item.image}`, alt="image" style="width:250px")
         p.itemDescription(id=`${item.id}-description`)= item.description
         if owner === loggedInUser
-          div(class="owner-buttons-div")
-            button(class="edit-btn" id=`edit-btn-${item.id}`) Edit
-            button(class='delete-btn' id=`delete-btn-${item.id}`) Delete
-            div(class='hidden hidden-div')
-            div(class='edit-field-div')
-              form(class="hidden" id=`edit-form-${item.id}`)
-                input(type="hidden" name="_csrf" value=csrfToken)
-                div(class='edit-item-field-div')
-                  label Item Name
-                  input(type="text" class='edit-item-field' name="name" value=item.name id=`${item.id}-edit-name` required)
-                div(class='edit-item-description-div')
-                  label Description
-                  input(type="text" class='edit-item-description' name="description" value=item.description id=`${item.id}-edit-description` required)
-                div
-                  button(class="edit-submit" id=`edit-submit-${item.id}`) Submit Edit
+          button(class="edit-btn" id=`edit-btn-${item.id}`) Edit
+          button(class='delete-btn' id=`delete-btn-${item.id}`) Delete
+          div(class='hidden hidden-div')
+          div(class='edit-field-div')
+            form(class="hidden hidden-form" id=`edit-form-${item.id}`)
+              input(type="hidden" name="_csrf" value=csrfToken)
+              div(class='edit-item-field-div')
+                label Item Name
+                input(type="text" class='edit-item-field' name="name" value=item.name id=`${item.id}-edit-name` required)
+              div(class='edit-item-description-div')
+                label Description
+                input(type="text" class='edit-item-description' name="description" value=item.description id=`${item.id}-edit-description` required)
+              div(class='submit-edit')
+                button(class="edit-submit" id=`edit-submit-${item.id}`) Submit Edit
     if owner === loggedInUser
     button(type='submit' class='create-new-button'):  a(href=`/restaurants/${restaurant.id}/menu-items/new/` class='create-new') New Menu Item
   //- form(action=`/restaurants/${restaurant.id}/menu-items`, method="post")

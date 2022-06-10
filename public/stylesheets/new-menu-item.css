@@ -1,0 +1,48 @@
+
+.new-menu-item-form-div {
+    display: flex;
+    height: 5%;
+    background-color: #F4F1EA;
+    margin: 10%;
+}
+
+.new-item-div {
+    display: flex;
+    margin-top: 5%;
+    margin-left: 10%;
+    align-items: center;
+    width: 50%;
+    padding: 7%;
+    background-color: #F4F1EA;
+}
+.new-description-div {
+    display: flex;
+    align-items: center;
+    margin-left: 10%;
+    width: 50%;
+    padding: 7%;
+    background-color: #F4F1EA;
+
+}
+
+label {
+    margin: 5%;
+}
+
+
+
+.create-submit {
+    margin: 0 0 0 5%;
+    background-color: whitesmoke;
+    font-family: Arial, Helvetica, sans-serif;
+    border-radius: 5px;
+}
+
+.restaurant-link {
+    font-family: Arial, Helvetica, sans-serif;
+    text-decoration: none;
+    font-style: italic;
+    font-weight: 500;
+    padding-left: 5%;
+    padding-bottom: 2.5%;
+}

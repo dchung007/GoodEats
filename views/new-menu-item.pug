@@ -1,12 +1,15 @@
 extends layout.pug
-
 block content
-    form(action=`/restaurants/${restaurant.id}/menu-items`, method="post")
+    link(rel='stylesheet' href='/stylesheets/new-menu-item.css')
+
+    form(class="new-menu-item-form" action=`/restaurants/${restaurant.id}/menu-items`, method="post")
         input(type="hidden" name="_csrf" value=csrfToken)
-        label Item name
-        input(type="text" name="name" id=`create-name` required)
-        label Description
-        input(type="text" name="description" id=`create-description` required)
-        button(type='submit' class="create-submit" id='create-submit') Create menu item
+        div(class="new-item-div")
+            label Item name
+            input(type="text" name="name" id=`create-name` required)
+        div(class="new-description-div")
+            label(class='item-dscription') Description
+            input(type="text" name="description" id=`create-description` required)
+            button(type='submit' class="create-submit" id='create-submit') Create menu item
 
     p: a(href=`/restaurants/${restaurant.id}`)= restaurant.name
