@@ -1,0 +1,108 @@
+h2, p, button, label {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.main-header {
+    margin: 4% 0 0 5%;
+}
+
+.single-item {
+    margin: 5%;
+    padding: 2%;
+    border: 2px solid #F4F1EA;
+    background-color: #F4F1EA;
+
+}
+
+.itemName {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 20px;
+    font-weight: bold;
+    padding: 2%;
+    display: flex;
+    align-items: center;
+}
+
+.itemDescription {
+    font-family: Arial, Helvetica, sans-serif;
+    padding: 0 2%;
+}
+
+.image {
+    margin: 2% 0 2% 4%;
+}
+
+.owner-buttons-div {
+    display: flex;
+    padding: 2%;
+}
+
+.edit-btn {
+    margin-left: 2%;
+    height: auto;
+    width: auto;
+}
+
+.delete-btn {
+    margin-left: 3%;
+    height: auto;
+    width: auto;
+    text-align: center;
+}
+
+.edit-btn, .delete-btn {
+    /* background-color: #F4F1EA; */
+    background-color: whitesmoke;
+    padding: 1%;
+    border-radius: 5px;
+    font-family: Arial, Helvetica, sans-serif;
+
+}
+.hidden-form {
+    padding: 5%;
+}
+
+.edit-item-field-div {
+    display: inline;
+
+}
+.edit-item-field {
+    font-family: Arial, Helvetica, sans-serif;
+}
+.edit-item-description-div {
+    padding-top: 1%;
+}
+.edit-item-description {
+    font-family: Arial, Helvetica, sans-serif;
+    padding-left: 1%;
+    display: inline;
+}
+.submit-edit{
+    margin: 5%;
+}
+.edit-submit {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: whitesmoke;
+    height: 40px;
+    border-radius: 5px;
+}
+.create-new {
+    text-decoration: none;
+    text-align: center;
+}
+
+.create-new-button {
+    margin: 0 0 2% 5%;
+    background-color: whitesmoke;
+    font-family: Arial, Helvetica, sans-serif;
+    border-radius: 5px;
+}
+
+.restaurant-link {
+    font-family: Arial, Helvetica, sans-serif;
+    text-decoration: none;
+    font-style: italic;
+    font-weight: 500;
+    padding-left: 5%;
+    padding-bottom: 2.5%;
+}
