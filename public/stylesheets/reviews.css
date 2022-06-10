@@ -99,8 +99,9 @@
 
 .footer-container{
     width:100%;
+    margin-top:70px;
     height:25%;
-    position:static;
+    position:relative;
     bottom:0;
     left:0;
     background-color: #d6d0c4;
