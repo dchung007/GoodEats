@@ -9,7 +9,7 @@ const { signInUser, requireAuth } = require('../auth');
 
 const menuItemsRouter = express.Router();
 menuItemsRouter.use(cookieParser());
-menuItemsRouter.use(express.urlencoded({extended: false}));
+menuItemsRouter.use(express.urlencoded({ extended: false }));
 
 const bcrypt = require('bcryptjs');
 const csurf = require('csurf');
@@ -81,30 +81,31 @@ menuItemsRouter.post('/', itemValidators, csrfProtection, asyncHandler(async (re
   const path = req.baseUrl.split('/')
   const restaurantId = path[2];
   const {
-      name,
-      description
+    name,
+    description
   } = req.body
 
   const newMenuItem = await MenuItem.build({
-      // userId: req.session.auth.userId,
-      name,
-      description,
-      restaurantId
+    // userId: req.session.auth.userId,
+    name,
+    description,
+    restaurantId,
+    image: 'https://downtownls.org/wp-content/uploads/coming-soon.jpg'
   });
 
   const validatorErrors = validationResult(req);
 
   if (validatorErrors.isEmpty()) {
-      await newMenuItem.save();
-      return res.redirect(`/restaurants/${restaurantId}/menu-items`);
-    } else {
-      const errors = validatorErrors.array().map((error) => error.msg);
-      res.render('new-menu-item', {
-          title: "New Menu Item",
-          newMenuItem,
-          errors,
-          csrfToken: req.csrfToken(),
-      });
+    await newMenuItem.save();
+    return res.redirect(`/restaurants/${restaurantId}/menu-items`);
+  } else {
+    const errors = validatorErrors.array().map((error) => error.msg);
+    res.render('new-menu-item', {
+      title: "New Menu Item",
+      newMenuItem,
+      errors,
+      csrfToken: req.csrfToken(),
+    });
   };
 }));
 
