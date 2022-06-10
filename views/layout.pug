@@ -11,7 +11,8 @@ html
   body
     div(class='navbar-container')
         div(class='logo')
-          a(class='navbar-brand' href='/') GoodEats
+          a(href="/")
+            img(href="/" src="https://i.imgur.com/1QkBXU5.png", alt="Logo", style="height:50px", id="logo")
         div(class='navbar-contents')
           ul(class='account-links')
           unless locals.authenticated
