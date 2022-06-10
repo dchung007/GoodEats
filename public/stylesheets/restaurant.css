@@ -1,0 +1,31 @@
+.restaurant-header {
+    font-family: Arial, Helvetica, sans-serif;
+    padding: 2%;
+}
+
+.restaurant-div {
+    padding: 7%;
+    margin: 5%;
+    background-color: #F4F1EA;
+
+}
+
+.itemName {
+    padding: 1%;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: x-large;
+    padding-bottom: 2%;
+}
+
+
+
+.itemDescription {
+    padding-top: 3%;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: large;
+}
+
+.restaurant-p {
+    font-family: Arial, Helvetica, sans-serif;
+    padding: 2%;
+}
