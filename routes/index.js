@@ -5,7 +5,7 @@ const db = require("../db/models");
 /* GET home page. */
 indexRouter.get('/', async (req, res, next) => {
   const restaurants = await db.Restaurant.findAll({
-    limit: 2
+    // limit: 2
   });
   let loggedInUser;
   if (req.session.auth) {
