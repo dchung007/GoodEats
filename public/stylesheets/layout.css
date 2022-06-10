@@ -52,7 +52,7 @@
     cursor: pointer;
 }
 
-img {
+img:not(.githubicon) {
     height: 200px;
     width: 300px;
     border-radius: 30px;
