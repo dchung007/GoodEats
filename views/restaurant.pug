@@ -1,18 +1,20 @@
 extends layout.pug
 
 block content
-  h1= restaurant.name
+  link(rel='stylesheet' href='/stylesheets/restaurant.css')
 
-  div
-    each item in restaurant.MenuItems
-      h2.itemName= item.name
-      img(src=`${item.image}`, alt="image" style="width:250px")
-      p.itemDescription= item.description
+  h1(class='restaurant-header')= restaurant.name
 
-  div
+  each item in restaurant.MenuItems
     each review in restaurant.Reviews
-      p.reviewName= review.review
+      div(class="restaurant-div")
+        h2.itemName= item.name
+        img(src=`${item.image}`, alt="image" style="width:250px")
+        p.itemDescription= item.description
+        p.reviewName= review.review
 
-  p: a(href=`/restaurants/`) Restaurants
-  p: a(href=`/restaurants/${restaurantId}/menu-items`) See More Menu Items
-  p: a(href=`/restaurants/${restaurant.id}/reviews`) View All Reviews
+
+
+  p(class="restaurant-p"): a(href=`/restaurants/`) Restaurants
+  p(class="restaurant-header"): a(href=`/restaurants/${restaurantId}/menu-items`) See More Menu Items
+  p(class="restaurant-header"): a(href=`/restaurants/${restaurant.id}/reviews`) View All Reviews

@@ -1,10 +1,11 @@
 extends layout
 
 block content
-  h1 Restaurants
+  link(rel='stylesheet' href='/stylesheets/restaurants.css')
+  h1(class='restaurants-header') Restaurants
   div.allRestaurantsContainer
     each restaurant in restaurants
       div.oneRestaurantContainer
-        h2: a(href=`/restaurants/${restaurant.id}`)= restaurant.name
+        h2(class='restaurants-h2'): a(href=`/restaurants/${restaurant.id}`)= restaurant.name
         img(src=`${restaurant.image}`, alt="image" style="width:250px")
-        p= restaurant.description
+        p(class='restaurants-p')= restaurant.description
