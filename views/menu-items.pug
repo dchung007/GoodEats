@@ -13,6 +13,7 @@ block content
     each item in restaurant.MenuItems
       div.single-item(id=`item-container-${item.id}`)
         h2.itemName(id=`${item.id}-name`)= item.name
+        img(src=`${item.image}`, alt="image" style="width:250px")
         p.itemDescription(id=`${item.id}-description`)= item.description
         if owner === loggedInUser
           button(class="edit-btn" id=`edit-btn-${item.id}`) Edit

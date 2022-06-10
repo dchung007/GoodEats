@@ -17,6 +17,7 @@ block content
         h1 Where are your friends eating?
         p Chances are your friends are discussing their favorite (and least favorite) restaurants on goodeats.
     div
-      each resturant in restaurants
-        p= resturant.name
-        p= resturant.description
+      each restaurant in restaurants
+        p= restaurant.name
+        img(src=`${restaurant.image}`, alt="image" style="width:250px")
+        p= restaurant.description
