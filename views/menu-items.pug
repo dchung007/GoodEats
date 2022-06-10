@@ -5,7 +5,7 @@ block content
   script(src="/javascripts/menuItemDelete.js" type="module")
   link(rel='stylesheet' href='/stylesheets/menu-items.css')
 
-  h1 Menu
+  h1(class='main-header') Menu
   if errors
     ul
       each error in errors
@@ -27,7 +27,7 @@ block content
               input(type="text" name="description" value=item.description id=`${item.id}-edit-description` required)
               button(class="edit-submit" id=`edit-submit-${item.id}`) Submit Edit
     if owner === loggedInUser
-    button(type='submit'):  a(href=`/restaurants/${restaurant.id}/menu-items/new/` class='create-new') New Menu Item
+    button(type='submit' class='create-new-button'):  a(href=`/restaurants/${restaurant.id}/menu-items/new/` class='create-new') New Menu Item
   //- form(action=`/restaurants/${restaurant.id}/menu-items`, method="post")
   //-   input(type="hidden" name="_csrf" value=csrfToken)
   //-   label Item name
@@ -36,4 +36,4 @@ block content
   //-   input(type="text" name="description" id=`create-description`)
   //-   button(type='submit' class="create-submit" id='create-submit') Create menu item
 
-  p: a(href=`/restaurants/${restaurant.id}`)= restaurant.name
+  a(href=`/restaurants/${restaurant.id}` class='restaurant-link') Back to the #{restaurant.name}
