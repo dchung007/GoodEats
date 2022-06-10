@@ -6,4 +6,5 @@ block content
     each restaurant in restaurants
       div.oneRestaurantContainer
         h2: a(href=`/restaurants/${restaurant.id}`)= restaurant.name
+        img(src=`${restaurant.image}`, alt="image" style="width:250px")
         p= restaurant.description

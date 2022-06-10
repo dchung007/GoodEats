@@ -27,7 +27,10 @@ module.exports = {
       restaurantShelfId: {
         type: Sequelize.INTEGER,
         allowNull: false,
-        references: {model: 'RestaurantShelfs'}
+        references: { model: 'RestaurantShelfs' }
+      },
+      image: {
+        type: Sequelize.STRING
       },
       createdAt: {
         allowNull: false,

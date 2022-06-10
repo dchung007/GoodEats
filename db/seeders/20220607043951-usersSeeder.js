@@ -23,6 +23,11 @@ module.exports = {
       { username: 'Gary', password: 'theSnail', isOwner: false, createdAt: new Date(), updatedAt: new Date() },
       { username: 'Pearl', password: 'Krabs', isOwner: false, createdAt: new Date(), updatedAt: new Date() },
       { username: 'Larry', password: 'theLobster', isOwner: false, createdAt: new Date(), updatedAt: new Date() },
+      { username: 'Remy', password: 'Remy', isOwner: true, createdAt: new Date(), updatedAt: new Date() },
+      { username: 'TheMadHatter', password: 'Alice', isOwner: true, createdAt: new Date(), updatedAt: new Date() },
+      { username: 'Tony', password: 'Tony', isOwner: true, createdAt: new Date(), updatedAt: new Date() },
+      { username: 'Harry', password: 'Harry', isOwner: true, createdAt: new Date(), updatedAt: new Date() },
+      { username: 'Buzz', password: 'Lightyear', isOwner: true, createdAt: new Date(), updatedAt: new Date() },
     ], {});
   },
 

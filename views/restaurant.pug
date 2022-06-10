@@ -6,6 +6,7 @@ block content
   div
     each item in restaurant.MenuItems
       h2.itemName= item.name
+      img(src=`${item.image}`, alt="image" style="width:250px")
       p.itemDescription= item.description
 
   div

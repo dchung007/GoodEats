@@ -52,13 +52,15 @@ restaurantsRouter.get('/:id(\\d+)/reviews', asyncHandler(async (req, res) => {
         include: [Review],
     });
 
-
-    currentUser = res.locals.user.id;
-    console.log (`Current User Is... ${currentUser}`)
+    let loggedInUser
+    if(req.session.auth) {
+        loggedInUser = req.session.auth.userId
+    }
+    console.log (`Current User Is... ${loggedInUser}`)
     res.render('reviews', {
         title: "Reviews",
         restaurant,
-        currentUser
+        loggedInUser
     })
 }))
 
