@@ -33,13 +33,15 @@ h2, p, button, label {
 
 .edit-btn {
     margin-left: 2%;
-    height: 50px;
-
+    height: auto;
+    width: auto;
 }
 
 .delete-btn {
     margin-left: 3%;
-    height: 50px;
+    height: auto;
+    width: auto;
+    text-align: center;
 }
 
 .edit-btn, .delete-btn {
