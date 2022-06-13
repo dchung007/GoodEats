@@ -15,6 +15,6 @@ indexRouter.get('/', async (req, res, next) => {
 
   res.render('index', { loggedInUser, restaurants, title: 'a/A Express Skeleton Home' });
 });
-
+ 
 
 module.exports = indexRouter;
